@@ -1,6 +1,7 @@
 export const COLORS = {
     PRIMARY_BG_START : '#E4F2FC',
-    PRIMARY_BG_END: '#728BF31A'
+    PRIMARY_BG_END: '#728BF31A',
+    TITLE_GREY:'#1D1D1F'
 }
 
 export const GRADIENT_PRYMARY_BG = {
