@@ -1,12 +1,108 @@
-import { ButtonProps } from "react-native"
+import { COLORS } from "@/constants/color.const";
 
-type StyledButtonProps = ButtonProps & {
-    variant?: 
-    "title" ,
-    size?:
-    "small" | 
-    "medium" |
-    "large"
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
+import StyledText from "./StyledText";
+import { VariantText } from "./types/typeText.type";
+type StyledButtonProps = TouchableOpacityProps & {
+    lable?:string;
+    icon?: React.ComponentProps<typeof Ionicons>["name"];
+    variant?:
+        "small" | 
+        "medge" | 
+        "cirium" | 
+        "larcule" | 
+        "square" | 
+        'largeLight'|
+        'menuBtn'|
+        'clearBtn'|
+        'closeModal'|
+        'craete'|
+        'transparment'
+        ;
+    sizeIcon?:number;
+    skeletonDelay?: number;
+    image?: ImageSourcePropType;
+    children?: React.ReactNode;
+    isActive?:boolean;
+    variantText?:VariantText
+};
+const StyledButton: React.FC<StyledButtonProps> = (
+        {
+            isActive = false,
+            children,
+            image ,
+            skeletonDelay = 1000, 
+            sizeIcon = 41.82 ,
+            variant,
+            lable,
+            icon,
+            style,
+            disabled,
+            variantText,
+            ...props}
+    ) => {
+
+    const getVariantText = () => {
+
+    }
+    return (
+        <TouchableOpacity
+            {...props}
+            disabled = {disabled}
+            style = {[
+                style,
+                styles.base,
+                variant === 'transparment' ? styles.transparment : null
+
+            ]}
+        >
+            <View 
+                style={[
+                    styles.contentContainer,
+                ]}
+            >
+                {children}
+                {image && <Image source = {image}/>}
+                {lable && <StyledText variant = {variantText} size="medium">{lable}</StyledText>}
+                {icon && 
+                    <Ionicons 
+                        name={icon} 
+                        size={sizeIcon} 
+                    />
+                }
+            </View>
+        </TouchableOpacity>
+    )
 }
-
-const StyledButton = () => {}
+const styles = StyleSheet.create({
+    base:{
+        borderRadius:21.45,
+        justifyContent:"center",
+        alignItems:"center",
+        paddingHorizontal:10,
+        paddingVertical:5,
+        boxSizing:"border-box",
+        backgroundColor:COLORS.PRIMARY_BUTTON_COLOR,
+        flexDirection:"row",
+        elevation: 20,
+        shadowColor: COLORS.PRIMARY_BUTTON_COLOR,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.7,
+        shadowRadius: 3.84,
+        minHeight: 50,
+    },
+    contentContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    transparment:{
+        backgroundColor:'transparent'
+    }
+})
+export default StyledButton

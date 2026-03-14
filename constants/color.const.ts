@@ -1,7 +1,10 @@
 export const COLORS = {
     PRIMARY_BG_START : '#E4F2FC',
     PRIMARY_BG_END: '#728BF31A',
-    TITLE_GREY:'#1D1D1F'
+    PRIMARY_BG:'#E4F2FC',
+    TITLE_GREY:'#1D1D1F',
+    PRIMARY_BUTTON_COLOR:'#B7C5F9',
+    PRIMARY_BUTTON_TEXT:'#101073'
 }
 
 export const GRADIENT_PRYMARY_BG = {
@@ -14,7 +17,7 @@ export const GRADIENT_PRYMARY_BG = {
 export const GRADIENT_PRYMARY_BG_REVERSE = {
   PRYMARY: {
     LIST_COLORS: ['#718AF3','#E4F2FC'] as const,
-    COUNT_COLORS: [0, 1] as const
+    COUNT_COLORS: [0.33, 0.77] as const
   }
 } as const;
 
