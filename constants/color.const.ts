@@ -28,7 +28,7 @@ export const GRADIENT_PRYMARY_BG_FOUR = {
 } as const;
 export const GRADIENT_PRYMARY_BG_FIVE = {
   PRYMARY: {
-    LIST_COLORS: ['#728cf34e','#728cf3b5'] as const,
+    LIST_COLORS: ['#728cf34e','#728cf3b0'] as const,
     COUNT_COLORS: [0.1, 0.9] as const
   }
 } as const;

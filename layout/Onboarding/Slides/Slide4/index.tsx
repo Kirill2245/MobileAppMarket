@@ -15,7 +15,7 @@ const Slide4 = () => {
             style = {styles.contain}
         >
             <Header/>
-            <StyledButton lable="Разместить проект" variant="medge" variantText="title"/>
+            <StyledButton lable="Разместить проект" variant="medge" variantText="title" style = {{width:191.43}}/>
             <Frame/>
         </LinearGradient>
     )

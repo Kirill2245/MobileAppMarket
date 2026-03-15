@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         backgroundColor:'transparent'
     },
     medge:{
-        width:191.43,
+        // width:191.43,
         height:48,
         borderWidth:0
     }
