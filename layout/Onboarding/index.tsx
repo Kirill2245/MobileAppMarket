@@ -53,6 +53,7 @@ const Onboarding = () => {
                     offset: width * index,
                     index,
                 })}
+
             />
         </View>
     );

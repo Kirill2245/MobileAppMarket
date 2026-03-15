@@ -95,6 +95,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.7,
         shadowRadius: 3.84,
         minHeight: 50,
+        borderWidth:1,
+        borderColor:COLORS.PRIMARY_BORDER_COLOR,
     },
     contentContainer: {
         flexDirection: 'row',
@@ -102,7 +104,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     transparment:{
-        backgroundColor:'transparent'
+        backgroundColor:'transparent',
+        borderWidth:0
     }
 })
 export default StyledButton

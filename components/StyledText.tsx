@@ -22,6 +22,7 @@ const StyledText: React.FC<StyledTextProps> = ({style,variant,size = 'medium',ch
             variant === 'subtitle' ? styles.subtitle : null,
             variant === 'button-text-blue' ? styles.button_text_blue : null,
             variant === 'button-text-grey' ? styles.button_text_grey : null,
+            variant === 'tag' ? styles.tag : null,
             size === 'large' ? styles.large : null,
             size === 'medium' ? styles.medium : null
         ]}
@@ -61,6 +62,10 @@ const styles = StyleSheet.create({
         fontSize:16,
         lineHeight:24,
         letterSpacing:0
+    },
+    tag:{
+        color:COLORS.PRIMARY_BUTTON_TEXT,
+        fontWeight:400
     }
 })
 export default StyledText

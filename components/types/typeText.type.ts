@@ -3,3 +3,4 @@ export type VariantText =
     |"subtitle" 
     |"button-text-blue" 
     |'button-text-grey'
+    |"tag"
