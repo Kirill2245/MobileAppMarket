@@ -8,7 +8,10 @@ type StyledTextProps = TextProps & {
     size?:
     "small" | 
     "medium" |
-    "large"
+    "large" |
+    "regular"|
+    "secondary"|
+    "ower-small"
     children?: React.ReactNode;
 }
 
@@ -22,9 +25,13 @@ const StyledText: React.FC<StyledTextProps> = ({style,variant,size = 'medium',ch
             variant === 'subtitle' ? styles.subtitle : null,
             variant === 'button-text-blue' ? styles.button_text_blue : null,
             variant === 'button-text-grey' ? styles.button_text_grey : null,
+            variant === 'subtitle-grey' ? styles.subtitle_grey:null,
             variant === 'tag' ? styles.tag : null,
             size === 'large' ? styles.large : null,
-            size === 'medium' ? styles.medium : null
+            size === 'medium' ? styles.medium : null,
+            size === 'regular' ? styles.regular : null,
+            size === 'small' ? styles.small : null,
+            size === 'secondary' ? styles.secondary : null
         ]}
     >{children}</Text>
 }
@@ -35,7 +42,7 @@ const styles = StyleSheet.create({
         fontFamily:'Inter'
     },
     base:{
-
+        textDecorationLine:'none'
     },
     title:{
         color:COLORS.TITLE_GREY,
@@ -53,6 +60,14 @@ const styles = StyleSheet.create({
         color:COLORS.PRIMARY_BUTTON_TEXT,
         fontWeight:600
     },
+    tag:{
+        color:COLORS.PRIMARY_BUTTON_TEXT,
+        fontWeight:400
+    },
+    subtitle_grey:{
+        color:COLORS.SUBTITLE_GREY,
+        fontWeight:400
+    },
     large:{
         fontSize:32,
         lineHeight:35.2,
@@ -63,9 +78,25 @@ const styles = StyleSheet.create({
         lineHeight:24,
         letterSpacing:0
     },
-    tag:{
-        color:COLORS.PRIMARY_BUTTON_TEXT,
-        fontWeight:400
+    regular:{
+        fontSize:20,
+        lineHeight:28,
+        letterSpacing:0
+    },
+    small:{
+        fontSize:14,
+        lineHeight:20,
+        letterSpacing:0
+    },
+    secondary:{
+        fontSize:18,
+        lineHeight:28,
+        letterSpacing:0
+    },
+    ower_small:{
+        fontSize:12,
+        lineHeight:16,
+        letterSpacing:0
     }
 })
 export default StyledText

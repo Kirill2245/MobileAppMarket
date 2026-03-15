@@ -19,7 +19,8 @@ type StyledButtonProps = TouchableOpacityProps & {
         'clearBtn'|
         'closeModal'|
         'craete'|
-        'transparment'
+        'transparment'|
+        'transparment-border'
         ;
     sizeIcon?:number;
     skeletonDelay?: number;
@@ -54,8 +55,9 @@ const StyledButton: React.FC<StyledButtonProps> = (
             style = {[
                 style,
                 styles.base,
-                variant === 'transparment' ? styles.transparment : null
-
+                variant === 'transparment' ? styles.transparment : null,
+                variant === 'transparment-border' ? styles.transparment_border : null,
+                variant === 'medge' ? styles.medge : null
             ]}
         >
             <View 
@@ -78,7 +80,7 @@ const StyledButton: React.FC<StyledButtonProps> = (
 }
 const styles = StyleSheet.create({
     base:{
-        borderRadius:21.45,
+        borderRadius:26843500,
         justifyContent:"center",
         alignItems:"center",
         paddingHorizontal:10,
@@ -105,6 +107,14 @@ const styles = StyleSheet.create({
     },
     transparment:{
         backgroundColor:'transparent',
+        borderWidth:0
+    },
+    transparment_border:{
+        backgroundColor:'transparent'
+    },
+    medge:{
+        width:191.43,
+        height:48,
         borderWidth:0
     }
 })

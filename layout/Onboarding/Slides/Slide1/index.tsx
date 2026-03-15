@@ -11,7 +11,7 @@ const Slide1:React.FC<Slide1Props> = ({ onNext }) => {
     return (
 
         <ImageBackground
-           source={require('../../../assets/images/bg.png')}
+           source={require('@assets/images/bg.png')}
             style={styles.slide}
             resizeMode="cover"
         >
