@@ -9,7 +9,17 @@ const Frame = () => {
             name:'Алекс Ким',
             description:'Старший React-разработчик',
             count:97
-        }
+        },
+        {
+            name:'Мария Сантос',
+            description:'Full-stack Инженер',
+            count:94
+        },
+        {
+            name:'Джеймс Уилсон',
+            description:'React Специалист',
+            count:92
+        },
     ]
     const renderCard = ({item}: {item:{name:string, description:string, count:number}}) =>(
         <Card name={item.name} description={item.description} count={item.count}/>
@@ -39,7 +49,7 @@ const styles = StyleSheet.create({
         marginTop:25,
         borderRadius:24,
         alignItems:'center',
-        padding:24
+        padding:20
     },
     textBox:{
         width:'100%',
@@ -55,7 +65,8 @@ const styles = StyleSheet.create({
     listCard:{
         gap:12,
         marginTop:24,
-        marginBottom:16
+        marginBottom:16,
+        flex:1
     }
 })
 

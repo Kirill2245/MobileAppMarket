@@ -4,6 +4,7 @@ import Slide1 from './Slides/Slide1';
 import Slide2 from './Slides/Slide2';
 import Slide3 from './Slides/Slide3';
 import Slide4 from './Slides/Slide4';
+import Slide5 from './Slides/Slide5';
 
     const { width } = Dimensions.get('window');
 
@@ -14,8 +15,9 @@ import Slide4 from './Slides/Slide4';
         const slides = [
             { id: '1', component: Slide1 }, 
             { id: '2', component: Slide2 },
-            { id:'3', component: Slide3},
-            { id:'4', component: Slide4}
+            { id:'3', component: Slide3 },
+            { id:'4', component: Slide4 },
+            {id:'5', component: Slide5}
         ];
 
         const goToNextSlide = () => {
