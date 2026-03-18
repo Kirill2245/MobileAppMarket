@@ -2,10 +2,15 @@ import StyledButton from "@/components/StyledButton";
 import StyledText from "@/components/StyledText";
 import { GRADIENT_PRYMARY_BG_FIVE } from "@/constants/color.const";
 import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
 import { StyleSheet } from "react-native";
 import Frame from "./frame";
 
-const Slide5 = () => {
+interface Slide5Props {
+
+    isShowFormAuth: () => void
+}
+const Slide5:React.FC<Slide5Props> = ({isShowFormAuth}) => {
     return(
         <LinearGradient
             colors={GRADIENT_PRYMARY_BG_FIVE.PRYMARY.LIST_COLORS}
@@ -21,7 +26,7 @@ const Slide5 = () => {
                 size="medium" 
                 style = {{textAlign:'center', width:328, marginTop:26}}
             >Присоединяйтесь к тысячам фрилансеров и компаний, находящих идеальное совпадение с помощью AI.</StyledText>
-            <StyledButton lable="Создать бесплатный аккаунт" style = {{width:'100%',marginTop:56, marginBottom:20}} variant="medge"/>
+            <StyledButton lable="Создать бесплатный аккаунт" style = {{width:'100%',marginTop:56, marginBottom:20}} variant="medge" onPress={isShowFormAuth}/>
             <StyledText variant="button-text-blue" size="ower-small"> требуется 2 минуты</StyledText>
         </LinearGradient>
     );

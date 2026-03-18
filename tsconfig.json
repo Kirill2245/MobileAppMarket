@@ -14,5 +14,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "layout/Main/NavigatePanel/Icons/SearchIcon.js", "layout/Main/NavigatePanel/Icons/HomeIcon.js"  ]
 }

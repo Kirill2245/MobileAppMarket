@@ -3,8 +3,8 @@ import { COLORS } from "@/constants/color.const";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
+import { VariantText } from "../types/typeText.type";
 import StyledText from "./StyledText";
-import { VariantText } from "./types/typeText.type";
 type StyledButtonProps = TouchableOpacityProps & {
     lable?:string;
     icon?: React.ComponentProps<typeof Ionicons>["name"];

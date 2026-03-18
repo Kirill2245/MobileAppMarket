@@ -6,8 +6,9 @@ import React from "react";
 import { ImageBackground, StyleSheet, View } from "react-native";
 interface Slide1Props {
     onNext?: () => void; 
+    isShowFormAuth: () => void
 }
-const Slide1:React.FC<Slide1Props> = ({ onNext }) => {
+const Slide1:React.FC<Slide1Props> = ({ onNext, isShowFormAuth }) => {
     return (
 
         <ImageBackground
@@ -31,7 +32,7 @@ const Slide1:React.FC<Slide1Props> = ({ onNext }) => {
                 </StyledText>
             </View>
             <View style = {styles.contain}>
-              <StyledButton lable="Начать прямо сейчас" variantText="button-text-grey"></StyledButton>
+              <StyledButton lable="Начать прямо сейчас" variantText="button-text-grey" onPress={isShowFormAuth}></StyledButton>
               <StyledButton 
                 lable="Как это работает" 
                 variantText="button-text-grey" 

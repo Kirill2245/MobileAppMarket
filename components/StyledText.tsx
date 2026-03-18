@@ -1,7 +1,7 @@
 import { COLORS } from "@/constants/color.const";
 import React from "react";
 import { StyleSheet, Text, TextProps } from "react-native";
-import { VariantText } from "./types/typeText.type";
+import { VariantText } from "../types/typeText.type";
 
 type StyledTextProps = TextProps & {
     variant?: VariantText

@@ -5,11 +5,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Card from "./Card";
 import Tag from "./Tag";
 
-interface Slide1Props {
-    onNext?: () => void; 
-}
 
-const Slide2: React.FC<Slide1Props> = ({ onNext }) => {
+
+const Slide2 = () => {
     const tagList = [
         { title: '✓ Проверено' },
         { title: '🔒 Безопасные Платежи' },

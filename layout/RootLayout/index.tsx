@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import Main from "../Main";
 import Onboarding from "../Onboarding";
 
 const RootLayout = () => {
+    const [isShowFormAuth, setIsShowFormAuth] = useState(false)
     return (
         <View style = {styles.contain}>
-            <Onboarding/>
+            {isShowFormAuth ? <Main/> : <Onboarding isShowFormAuth={() => setIsShowFormAuth(true)}/>}
+            
         </View>
     )
 };

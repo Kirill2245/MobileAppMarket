@@ -7,8 +7,11 @@ import Card from "./card";
 import CardDesiner from "./cardDesiner";
 import Header from "./header";
 
+interface Slide3Props {
 
-const Slide3 = () => {
+    isShowFormAuth: () => void
+}
+const Slide3:React.FC<Slide3Props> = ({isShowFormAuth}) => {
 
     return (
         <LinearGradient 
@@ -24,6 +27,7 @@ const Slide3 = () => {
                 variantText="button-text-blue" 
                 variant="transparment-border"
                 style = {{height:60, width:'100%'}}
+                onPress={isShowFormAuth}
             />
             <Card/>
             <CardDesiner/>

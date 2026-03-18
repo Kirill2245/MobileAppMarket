@@ -1,11 +1,16 @@
 import StyledButton from "@/components/StyledButton"
 import { GRADIENT_PRYMARY_BG_FOUR } from "@/constants/color.const"
 import { LinearGradient } from "expo-linear-gradient"
+import React from "react"
 import { StyleSheet } from "react-native"
 import Frame from "./frame"
 import Header from "./header"
 
-const Slide4 = () => {
+interface Slide4Props {
+
+    isShowFormAuth: () => void
+}
+const Slide4:React.FC<Slide4Props> = ({isShowFormAuth}) => {
     return (
         <LinearGradient
             colors={GRADIENT_PRYMARY_BG_FOUR.PRYMARY.LIST_COLORS}
@@ -15,7 +20,7 @@ const Slide4 = () => {
             style = {styles.contain}
         >
             <Header/>
-            <StyledButton lable="Разместить проект" variant="medge" variantText="title" style = {{width:191.43}}/>
+            <StyledButton lable="Разместить проект" variant="medge" variantText="title" style = {{width:191.43}} onPress={isShowFormAuth}/>
             <Frame/>
         </LinearGradient>
     )
