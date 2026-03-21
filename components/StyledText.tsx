@@ -12,7 +12,8 @@ type StyledTextProps = TextProps & {
     "regular"|
     "secondary"|
     "ower-small"|
-    "semi-large"
+    "semi-large"|
+    "medium-large"
     children?: React.ReactNode;
 }
 
@@ -33,7 +34,8 @@ const StyledText: React.FC<StyledTextProps> = ({style,variant,size = 'medium',ch
             size === 'regular' ? styles.regular : null,
             size === 'small' ? styles.small : null,
             size === 'secondary' ? styles.secondary : null,
-            size === 'semi-large' ? styles.semi_large : null
+            size === 'semi-large' ? styles.semi_large : null,
+            size === 'medium-large' ? styles.medium_large : null
         ]}
     >{children}</Text>
 }
@@ -103,6 +105,11 @@ const styles = StyleSheet.create({
     semi_large:{
         fontSize:28,
         lineHeight:32.2,
+        letterSpacing:0
+    },
+    medium_large:{
+        fontSize:24,
+        lineHeight:32,
         letterSpacing:0
     }
 })

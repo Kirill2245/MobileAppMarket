@@ -21,7 +21,8 @@ type StyledButtonProps = TouchableOpacityProps & {
         'craete'|
         'transparment'|
         'transparment-border' |
-        'image-btn'
+        'image-btn'|
+        'setting-btn'
         ;
     sizeIcon?:number;
     skeletonDelay?: number;
@@ -59,7 +60,8 @@ const StyledButton: React.FC<StyledButtonProps> = (
                 variant === 'transparment' ? styles.transparment : null,
                 variant === 'transparment-border' ? styles.transparment_border : null,
                 variant === 'medge' ? styles.medge : null,
-                variant === 'image-btn' ? styles.image_btn : null
+                variant === 'image-btn' ? styles.image_btn : null,
+                variant === 'setting-btn' ? styles.setting_btn : null
             ]}
         >
             <View 
@@ -132,5 +134,11 @@ const styles = StyleSheet.create({
         height: '100%',
         resizeMode: 'cover', 
     },
+    setting_btn:{
+        justifyContent:'space-between',
+        backgroundColor:'transparent',
+        borderWidth:0,
+        shadowColor:'transparent'
+    }
 })
 export default StyledButton
