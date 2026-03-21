@@ -20,7 +20,8 @@ type StyledButtonProps = TouchableOpacityProps & {
         'closeModal'|
         'craete'|
         'transparment'|
-        'transparment-border'
+        'transparment-border' |
+        'image-btn'
         ;
     sizeIcon?:number;
     skeletonDelay?: number;
@@ -57,7 +58,8 @@ const StyledButton: React.FC<StyledButtonProps> = (
                 styles.base,
                 variant === 'transparment' ? styles.transparment : null,
                 variant === 'transparment-border' ? styles.transparment_border : null,
-                variant === 'medge' ? styles.medge : null
+                variant === 'medge' ? styles.medge : null,
+                variant === 'image-btn' ? styles.image_btn : null
             ]}
         >
             <View 
@@ -66,7 +68,7 @@ const StyledButton: React.FC<StyledButtonProps> = (
                 ]}
             >
                 {children}
-                {image && <Image source = {image}/>}
+                {image && <Image source = {image} resizeMode="cover"/>}
                 {lable && <StyledText variant = {variantText} size="medium">{lable}</StyledText>}
                 {icon && 
                     <Ionicons 
@@ -116,6 +118,19 @@ const styles = StyleSheet.create({
         // width:191.43,
         height:48,
         borderWidth:0
-    }
+    },
+    image_btn:{
+        width:36,
+        minHeight:36,
+        height:36,
+        borderWidth:0,
+        padding:0,
+        borderRadius:18,
+    },
+    buttonImage: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover', 
+    },
 })
 export default StyledButton
