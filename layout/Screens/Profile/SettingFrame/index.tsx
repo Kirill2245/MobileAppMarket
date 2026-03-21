@@ -1,7 +1,11 @@
 import BellIcon from "@/components/Icons/BellIcon";
 import CardIcon from "@/components/Icons/CardIcon";
+import ExitIcon from "@/components/Icons/ExitIcon";
+import HelpIcon from "@/components/Icons/HelpIcon";
 import ProfileIconSetting from "@/components/Icons/ProfileIconSetting";
+import ShieldIcon from "@/components/Icons/ShieldIcon";
 import StarIconSetting from "@/components/Icons/StarIconSetting";
+import UsersIcon from "@/components/Icons/UsersIcon";
 import StyledButton from "@/components/StyledButton";
 import StyledText from "@/components/StyledText";
 import { COLORS } from "@/constants/color.const";
@@ -27,15 +31,15 @@ const SettingFrame = () => {
         },
         {
             title:'Члены команды',
-            icon:ProfileIconSetting
+            icon:UsersIcon
         },
         {
             title:'Безопасность',
-            icon:ProfileIconSetting
+            icon:ShieldIcon
         },
         {
             title:'Помощь и поддержка',
-            icon:ProfileIconSetting
+            icon:HelpIcon
         },
     ]
     return (
@@ -44,8 +48,15 @@ const SettingFrame = () => {
             <View style = {styles.listBox}>
                 {
                     listBtn.map((item, index) => (
-                        <StyledButton variant="setting-btn" key={index}>
-                            <View style = {styles.box_btn}>
+                        <StyledButton 
+                            variant="setting-btn" 
+                            key={index} 
+                            icon="chevron-forward" 
+                            sizeIcon = {20}
+                            colorIcon={COLORS.PRYMARY_SVG_COLOR}
+                            style = {index !== listBtn.length - 1 ?{borderBottomWidth:0.8} :{borderBottomWidth:0}}
+                        >
+                            <View style = {styles.box_btn} >
                                 <item.icon/>
                                 <StyledText>{item.title}</StyledText>
                             </View>
@@ -53,6 +64,17 @@ const SettingFrame = () => {
                     ))
                 }
             </View>
+            <StyledButton 
+                variant="leave-btn"
+                icon="chevron-forward" 
+                sizeIcon = {20}
+                colorIcon={COLORS.PRYMARY_SVG_COLOR}
+            >
+                <View  style = {styles.box_btn}>
+                    <ExitIcon/>
+                    <StyledText style = {{color:COLORS.PRYMARY_RED_COLOR}}>Выход </StyledText>
+                </View>
+            </StyledButton>
         </View>
     );
 }
@@ -66,10 +88,14 @@ const styles = StyleSheet.create({
         borderRadius:16,
         borderWidth:0.8,
         borderColor:COLORS.PRIMARY_BORDER_GREY,
+        marginBottom:2.6
     },
     box_btn:{
+        flex:1,
         flexDirection:'row',
-        gap:12
+        gap:12,
+        marginRight:'auto',
+        alignItems:'center'
     }
 })
 

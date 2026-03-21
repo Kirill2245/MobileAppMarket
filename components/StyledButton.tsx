@@ -22,9 +22,11 @@ type StyledButtonProps = TouchableOpacityProps & {
         'transparment'|
         'transparment-border' |
         'image-btn'|
-        'setting-btn'
+        'setting-btn'|
+        'leave-btn'
         ;
     sizeIcon?:number;
+    colorIcon?:string;
     skeletonDelay?: number;
     image?: ImageSourcePropType;
     children?: React.ReactNode;
@@ -44,6 +46,7 @@ const StyledButton: React.FC<StyledButtonProps> = (
             style,
             disabled,
             variantText,
+            colorIcon,
             ...props}
     ) => {
 
@@ -61,7 +64,8 @@ const StyledButton: React.FC<StyledButtonProps> = (
                 variant === 'transparment-border' ? styles.transparment_border : null,
                 variant === 'medge' ? styles.medge : null,
                 variant === 'image-btn' ? styles.image_btn : null,
-                variant === 'setting-btn' ? styles.setting_btn : null
+                variant === 'setting-btn' ? styles.setting_btn : null,
+                variant === 'leave-btn' ? styles.leave_btn : null
             ]}
         >
             <View 
@@ -76,6 +80,7 @@ const StyledButton: React.FC<StyledButtonProps> = (
                     <Ionicons 
                         name={icon} 
                         size={sizeIcon} 
+                        color={colorIcon}
                     />
                 }
             </View>
@@ -135,10 +140,22 @@ const styles = StyleSheet.create({
         resizeMode: 'cover', 
     },
     setting_btn:{
+        width:'100%',
+        height:52.8,
         justifyContent:'space-between',
         backgroundColor:'transparent',
         borderWidth:0,
+        // borderBottomWidth:0.8,
+        borderRadius:0,
+        borderColor:COLORS.PRIMARY_BORDER_GREY,
         shadowColor:'transparent'
-    }
+    },
+    leave_btn:{
+        backgroundColor:'white',
+        borderRadius:16,
+        borderColor:COLORS.PRIMARY_BORDER_GREY,
+        shadowColor:'transparent',
+        borderWidth:0.8
+    },
 })
 export default StyledButton
