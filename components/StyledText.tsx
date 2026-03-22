@@ -28,6 +28,7 @@ const StyledText: React.FC<StyledTextProps> = ({style,variant,size = 'medium',ch
             variant === 'button-text-blue' ? styles.button_text_blue : null,
             variant === 'button-text-grey' ? styles.button_text_grey : null,
             variant === 'subtitle-grey' ? styles.subtitle_grey:null,
+            variant === 'blue-btn-text' ? styles.blue_btn_text:null,
             variant === 'tag' ? styles.tag : null,
             size === 'large' ? styles.large : null,
             size === 'medium' ? styles.medium : null,
@@ -71,6 +72,10 @@ const styles = StyleSheet.create({
     subtitle_grey:{
         color:COLORS.SUBTITLE_GREY,
         fontWeight:400
+    },
+    blue_btn_text:{
+        color:COLORS.SEMI_BLUE_COLOR,
+
     },
     large:{
         fontSize:32,

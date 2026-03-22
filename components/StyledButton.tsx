@@ -23,7 +23,9 @@ type StyledButtonProps = TouchableOpacityProps & {
         'transparment-border' |
         'image-btn'|
         'setting-btn'|
-        'leave-btn'
+        'leave-btn'|
+        'txt-btn'|
+        'forms-btn'
         ;
     sizeIcon?:number;
     colorIcon?:string;
@@ -65,7 +67,9 @@ const StyledButton: React.FC<StyledButtonProps> = (
                 variant === 'medge' ? styles.medge : null,
                 variant === 'image-btn' ? styles.image_btn : null,
                 variant === 'setting-btn' ? styles.setting_btn : null,
-                variant === 'leave-btn' ? styles.leave_btn : null
+                variant === 'leave-btn' ? styles.leave_btn : null,
+                variant === 'txt-btn' ? styles.txt_btn : null,
+                variant === 'forms-btn' ? styles.forms_btn : null
             ]}
         >
             <View 
@@ -116,10 +120,12 @@ const styles = StyleSheet.create({
     },
     transparment:{
         backgroundColor:'transparent',
+        shadowColor:'transparent',
         borderWidth:0
     },
     transparment_border:{
-        backgroundColor:'transparent'
+        backgroundColor:'transparent',
+        shadowColor:'transparent'
     },
     medge:{
         // width:191.43,
@@ -157,5 +163,17 @@ const styles = StyleSheet.create({
         shadowColor:'transparent',
         borderWidth:0.8
     },
+        txt_btn:{
+        padding:0,
+                backgroundColor:'transparent',
+        shadowColor:'transparent',
+        borderWidth:0
+    },
+    forms_btn:{
+        borderWidth:0,
+        backgroundColor:COLORS.SEMI_BLUE_COLOR,
+        borderRadius:14,
+        height:48
+    }
 })
 export default StyledButton

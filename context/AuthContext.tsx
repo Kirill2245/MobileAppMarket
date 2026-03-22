@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoginFormOpen, setIsLoginFormOpen] = useState<boolean>(false)
   const [isSignUpOpen, setIsSignUpOpen] = useState<boolean>(false)
   const [user, setUser] = useState<User | null>({id:1,name:'Ruslan228'});
-  const [isAuthUser, setIsAuthUser] = useState<boolean>(true)
+  const [isAuthUser, setIsAuthUser] = useState<boolean>(false)
   const openAuthForm = () => {
     setIsAuthFormOpen(true);
     setIsSignUpOpen(true)
