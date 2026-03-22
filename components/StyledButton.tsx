@@ -161,10 +161,16 @@ const styles = StyleSheet.create({
         borderWidth:0.8
     },
     txt_btn:{
+        paddingTop:0,
+        paddingHorizontal:0,
         padding:0,
+        borderRadius:0,
         backgroundColor:'transparent',
+        // backgroundColor:'red',
         shadowColor:'transparent',
-        borderWidth:0
+        borderWidth:0,
+        
+
     },
     forms_btn:{
         borderWidth:0,
