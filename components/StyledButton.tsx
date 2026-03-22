@@ -7,15 +7,9 @@ import { VariantText } from "../types/typeText.type";
 import StyledText from "./StyledText";
 type StyledButtonProps = TouchableOpacityProps & {
     lable?:string;
-    icon?: React.ComponentProps<typeof Ionicons>["name"];
+    icon?: React.ComponentProps<typeof Ionicons>["name"];   
     variant?:
-        "small" | 
         "medge" | 
-        "cirium" | 
-        "larcule" | 
-        "square" | 
-        'largeLight'|
-        'menuBtn'|
         'clearBtn'|
         'closeModal'|
         'craete'|
@@ -25,7 +19,8 @@ type StyledButtonProps = TouchableOpacityProps & {
         'setting-btn'|
         'leave-btn'|
         'txt-btn'|
-        'forms-btn'
+        'forms-btn'|
+        'forms-transparent-btn'
         ;
     sizeIcon?:number;
     colorIcon?:string;
@@ -60,7 +55,6 @@ const StyledButton: React.FC<StyledButtonProps> = (
             {...props}
             disabled = {disabled}
             style = {[
-                style,
                 styles.base,
                 variant === 'transparment' ? styles.transparment : null,
                 variant === 'transparment-border' ? styles.transparment_border : null,
@@ -69,7 +63,9 @@ const StyledButton: React.FC<StyledButtonProps> = (
                 variant === 'setting-btn' ? styles.setting_btn : null,
                 variant === 'leave-btn' ? styles.leave_btn : null,
                 variant === 'txt-btn' ? styles.txt_btn : null,
-                variant === 'forms-btn' ? styles.forms_btn : null
+                variant === 'forms-btn' ? styles.forms_btn : null,
+                variant === 'forms-transparent-btn' ? styles.forms_transparent_btn : null,
+                style,
             ]}
         >
             <View 
@@ -117,6 +113,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        gap:11
     },
     transparment:{
         backgroundColor:'transparent',
@@ -163,9 +160,9 @@ const styles = StyleSheet.create({
         shadowColor:'transparent',
         borderWidth:0.8
     },
-        txt_btn:{
+    txt_btn:{
         padding:0,
-                backgroundColor:'transparent',
+        backgroundColor:'transparent',
         shadowColor:'transparent',
         borderWidth:0
     },
@@ -174,6 +171,14 @@ const styles = StyleSheet.create({
         backgroundColor:COLORS.SEMI_BLUE_COLOR,
         borderRadius:14,
         height:48
+    },
+    forms_transparent_btn:{
+        borderWidth:0.8,
+        borderColor:COLORS.PRIMARY_BORDER_GREY,
+        borderRadius:14,
+        height:48,
+        shadowColor:'transparent',
+        gap:11
     }
 })
 export default StyledButton
