@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { Input, InputProps } from 'react-native-elements';
 
 type StyledInputProps = InputProps & {
-    variant?: 'forms-input'
+    variant?: 'forms-input'|'forms-fill-input'
 }
 
 const StyledInput: React.FC<StyledInputProps> = (

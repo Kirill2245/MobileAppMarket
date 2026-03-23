@@ -21,7 +21,7 @@ const MasterFrame:React.FC<MasterFrameProps> = ({onSwitchToLogin}) => {
         >
             {
                 isOpenSign ? 
-                    <MasterSign/> :
+                    <MasterSign onSwitchToLogin={onSwitchToLogin}/> :
                     <View style = {styles.content}>
                         <LinearGradient
                             colors={GRADIENTS.PRIMARY_VERTICAL_LIGHT.colors}
@@ -45,6 +45,7 @@ const MasterFrame:React.FC<MasterFrameProps> = ({onSwitchToLogin}) => {
 const styles = StyleSheet.create({
     frame:{
         flex: 1,
+        backgroundColor:'white'
     },
     contentContainer: {
         flexGrow: 1

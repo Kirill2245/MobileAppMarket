@@ -1,10 +1,13 @@
 import StepIndicator from "@/components/StepIndicator";
 import StyledButton from "@/components/StyledButton";
 import StyledText from "@/components/StyledText";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Animated, StyleSheet, View } from "react-native";
-
-const MasterSign = () => {
+import Step1 from "./Steps/Step1";
+interface MasterSignProps {
+    onSwitchToLogin: () => void;
+}
+const MasterSign:React.FC<MasterSignProps> = ({onSwitchToLogin}) => {
     const [currentStep, setCurrentStep] = useState(1);
     const fadeAnim = useState(new Animated.Value(1))[0];
     
@@ -39,7 +42,12 @@ const MasterSign = () => {
         ]).start();
         callback();
     };
-    
+    const renderStep = () => {
+        switch(currentStep){
+            case 1:return <Step1 onSwitchToLogin={onSwitchToLogin} nextStep={nextStep}/>
+
+        }
+    }
     return (
         <View style={styles.frame}>
             <View style={styles.header}>
@@ -61,15 +69,10 @@ const MasterSign = () => {
             </View>
             
             <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
-                <StyledText>Содержимое шага {currentStep}</StyledText>
+                {renderStep()}
             </Animated.View>
             
-            {currentStep < 4 && (
-                <StyledButton 
-                    lable="Далее" 
-                    onPress={nextStep}
-                />
-            )}
+
         </View>
     );
 };
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 16,
         paddingTop: 50,
-        paddingBottom:33
+        paddingBottom:53
     },
     header: {
         width:'100%',
