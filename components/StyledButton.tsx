@@ -28,7 +28,8 @@ type StyledButtonProps = TouchableOpacityProps & {
     image?: ImageSourcePropType;
     children?: React.ReactNode;
     isActive?:boolean;
-    variantText?:VariantText
+    variantText?:VariantText;
+    sizeText?:"medium" | "small"
 };
 const StyledButton: React.FC<StyledButtonProps> = (
         {
@@ -44,6 +45,7 @@ const StyledButton: React.FC<StyledButtonProps> = (
             disabled,
             variantText,
             colorIcon,
+            sizeText = 'medium',
             ...props}
     ) => {
 
@@ -75,7 +77,7 @@ const StyledButton: React.FC<StyledButtonProps> = (
             >
                 {children}
                 {image && <Image source = {image} resizeMode="cover"/>}
-                {lable && <StyledText variant = {variantText} size="medium">{lable}</StyledText>}
+                {lable && <StyledText variant = {variantText} size={sizeText}>{lable}</StyledText>}
                 {icon && 
                     <Ionicons 
                         name={icon} 

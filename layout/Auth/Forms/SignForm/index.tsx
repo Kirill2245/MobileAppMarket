@@ -1,7 +1,9 @@
-import StyledText from "@/components/StyledText";
 import { Role } from "@/types/role.enum";
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import CustomerFrame from "./CustomerFrame";
+import MasterFrame from "./MasterFrame";
+
 
 interface SignFormProps {
     type: Role;
@@ -11,16 +13,14 @@ interface SignFormProps {
 const SignForm: React.FC<SignFormProps> = ({ type, onSwitchToLogin }) => {
     return (
         <View style={styles.container}>
-            <StyledText>{type}</StyledText>
+            {type === Role.MASTER ? <MasterFrame onSwitchToLogin={onSwitchToLogin}/> : <CustomerFrame/>}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingHorizontal: 24,
-        paddingTop: 50,
+        flex: 1
     }
 })
 
