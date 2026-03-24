@@ -13,7 +13,7 @@ interface SignFormProps {
 const SignForm: React.FC<SignFormProps> = ({ type, onSwitchToLogin }) => {
     return (
         <View style={styles.container}>
-            {type === Role.MASTER ? <MasterFrame onSwitchToLogin={onSwitchToLogin}/> : <CustomerFrame/>}
+            {type === Role.MASTER ? <MasterFrame onSwitchToLogin={onSwitchToLogin}/> : <CustomerFrame onSwitchToLogin={onSwitchToLogin}/>}
         </View>
     );
 }

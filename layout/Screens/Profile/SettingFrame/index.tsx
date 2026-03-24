@@ -9,9 +9,11 @@ import UsersIcon from "@/components/Icons/UsersIcon";
 import StyledButton from "@/components/StyledButton";
 import StyledText from "@/components/StyledText";
 import { COLORS } from "@/constants/color.const";
+import { useAuth } from "@/context/AuthContext";
 import { StyleSheet, View } from "react-native";
 
 const SettingFrame = () => {
+    const {logout} = useAuth()
     const listBtn = [
         {
             title:'Настроики аккаунта',
@@ -69,6 +71,7 @@ const SettingFrame = () => {
                 icon="chevron-forward" 
                 sizeIcon = {20}
                 colorIcon={COLORS.PRYMARY_SVG_COLOR}
+                onPress={logout}
             >
                 <View  style = {styles.box_btn}>
                     <ExitIcon/>

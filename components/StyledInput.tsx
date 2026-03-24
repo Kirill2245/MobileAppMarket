@@ -114,7 +114,6 @@ import { Input, InputProps } from 'react-native-elements';
             borderRadius: 14,
             paddingHorizontal: 16,
             backgroundColor: '#FFFFFF',
-            borderBottomWidth: 0,
             margin: 0,
             padding: 0,
             position: 'relative',
@@ -131,7 +130,7 @@ import { Input, InputProps } from 'react-native-elements';
             height: '100%',
         },
         forms_input: {
-            borderWidth: 0.8,
+            borderWidth: 1.6,
             borderColor: COLORS.PRIMARY_BORDER_GREY,
         },
 

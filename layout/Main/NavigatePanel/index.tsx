@@ -37,12 +37,12 @@ const NavigatePanel = () => {
                 tabBarActiveTintColor: COLORS.PRIMARY_BUTTON_TEXT,
                 tabBarInactiveTintColor: COLORS.NO_ENABLE_ICON,
                 tabBarStyle: {
-                    height: 80,
+                    height: 100,
                     paddingBottom: 0,
                     paddingTop: 0,
                     alignItems:'center',
                     justifyContent:'center',
-                    paddingHorizontal:23.68
+                    paddingHorizontal:23.68,
                 },
                 tabBarIconStyle: {
                     marginTop: 8, 

@@ -1,19 +1,23 @@
+import { DropdownInputProps } from "@/types/drop-input-props.type";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { InputProps } from 'react-native-elements';
+import DropdownInput from "./DropDownInput";
 import StyledInput from "./StyledInput";
 import StyledText from "./StyledText";
 
-type StyledInputProps = InputProps & {
+type StyledInputProps = InputProps &  Partial<DropdownInputProps> & {
     customLable?: string;
     multiline?: boolean; 
     numberOfLines?: number; 
+    drop?:boolean;
 };
 
 const StyledInputLable: React.FC<StyledInputProps> = ({ 
     customLable, 
     multiline = false,
     numberOfLines = 4,
+    drop = false,
     ...props 
 }) => {
     const sizeHeight = customLable ? (multiline ? 120 : 80.2) : (multiline ? 100 : 48);
@@ -24,11 +28,16 @@ const StyledInputLable: React.FC<StyledInputProps> = ({
             { height: sizeHeight }
         ]}>
             {customLable && <StyledText variant="title" size="small">{customLable}</StyledText>}
-            <StyledInput 
-                {...props} 
-                multiline={multiline}
-                numberOfLines={numberOfLines}
-            />
+            {drop && props.items && props.items.length > 0 ? (
+                <DropdownInput {...props as DropdownInputProps} />  // 👈 Приводим тип
+            ) : (
+                <StyledInput 
+                    {...props} 
+                    multiline={multiline}
+                    numberOfLines={numberOfLines}
+                />
+            )}
+
         </View>
     );
 };

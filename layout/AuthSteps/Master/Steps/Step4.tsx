@@ -3,12 +3,14 @@ import StyledButton from "@/components/StyledButton";
 import StyledText from "@/components/StyledText";
 import { COLORS } from "@/constants/color.const";
 import { GRADIENTS } from "@/constants/gradient.const";
+import { useAuth } from "@/context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, View } from "react-native";
 import HeaderStep from "../../common/HeaderStep";
 
 const Step4 = () => {
+    const {AuthUser} = useAuth()
     const data = [
         "Добавьте 3-5 лучших работ",
         "Опишите свою роль в проекте",
@@ -59,7 +61,7 @@ const Step4 = () => {
                     ))}
                 </View>
             </LinearGradient>
-            <StyledButton lable="Завершить регистрацию" variant="forms-btn" />
+            <StyledButton lable="Завершить регистрацию" variant="forms-btn" onPress={AuthUser}/>
         </View>
     );
 }

@@ -13,6 +13,7 @@ interface AuthContextType {
   closeLoginForm: () => void;
   closeSignUpForm:() => void;
   toggleAuthForm: () => void;
+  AuthUser: () => void;
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
@@ -71,9 +72,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    setIsAuthUser(false)
     // Можно добавить очистку AsyncStorage
   };
-
+  
+  const AuthUser = () => {
+    setIsAuthUser(true)
+  }
   const value: AuthContextType = {
     isAuthUser,
     isAuthFormOpen,
@@ -86,6 +91,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     closeLoginForm,
     closeSignUpForm,
     toggleAuthForm,
+    AuthUser,
     user,
     login,
     logout,
