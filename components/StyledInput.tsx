@@ -1,11 +1,14 @@
 import { COLORS } from "@/constants/color.const";
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Input, InputProps } from 'react-native-elements';
 
 type StyledInputProps = InputProps & {
-    variant?: 'forms-input'|'forms-fill-input'
-}
+    variant?: 'forms-input' | 'forms-fill-input';
+    multiline?: boolean;
+    numberOfLines?: number;
+    inputContainerStyle?: any; 
+};
 
 const StyledInput: React.FC<StyledInputProps> = (
     {
@@ -15,9 +18,54 @@ const StyledInput: React.FC<StyledInputProps> = (
         containerStyle,
         inputContainerStyle,
         inputStyle,
+        multiline = false,
+        numberOfLines = 4,
+        placeholder,
+        value,
+        onChangeText,
         ...props
     }
 ) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const hasValue = value && value.length > 0;
+
+    if (multiline) {
+        return (
+            <View style={[
+                styles.containerBase,
+                containerStyle
+            ]}>
+                <View style={[
+                    styles.multilineContainer,
+                    variant === 'forms-input' ? styles.forms_input : null,
+                    inputContainerStyle, 
+                    isFocused && styles.focusedContainer
+                ]}>
+                    {(!hasValue && !isFocused) && (
+                        <Text style={styles.floatingPlaceholder}>
+                            {placeholder}
+                        </Text>
+                    )}
+                    <TextInput
+                        {...props}
+                        style={[
+                            styles.multilineInput,
+                            inputStyle
+                        ]}
+                        multiline={true}
+                        numberOfLines={numberOfLines}
+                        textAlignVertical="top"
+                        value={value}
+                        onChangeText={onChangeText}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        placeholderTextColor={COLORS.PRIMARY_PLACEHOLDER}
+                    />
+                </View>
+            </View>
+        );
+    }
+
     return (
         <Input
             {...props}
@@ -36,6 +84,7 @@ const StyledInput: React.FC<StyledInputProps> = (
                 inputStyle
             ]}
             rightIcon={rightIcon}
+            placeholder={placeholder} 
             placeholderTextColor={COLORS.PRIMARY_PLACEHOLDER}
             underlineColorAndroid="transparent"
         />
@@ -46,22 +95,22 @@ const styles = StyleSheet.create({
     containerBase: {
         width: '100%',
         paddingHorizontal: 0,
-        margin: 0, // Убираем все margin
-        padding: 0, // Убираем все padding
-        position: 'relative', // Явно указываем относительное позиционирование
+        margin: 0,
+        padding: 0,
+        position: 'relative',
     },
     inputContainerBase: {
         width: '100%',
-        height: 48, // Фиксированная высота вместо minHeight
+        height: 48,
         borderWidth: 1,
         borderColor: '#ffffff00',
         borderRadius: 14,
         paddingHorizontal: 16,
         backgroundColor: '#FFFFFF',
         borderBottomWidth: 0,
-        margin: 0, // Убираем margin
-        padding: 0, // Убираем padding
-        position: 'relative', // Относительное позиционирование
+        margin: 0,
+        padding: 0,
+        position: 'relative',
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -69,15 +118,48 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#000000',
         textDecorationLine: 'none',
-        padding: 0, // Убираем внутренние отступы
-        margin: 0, // Убираем margin
+        padding: 0,
+        margin: 0,
         flex: 1,
-        height: '100%', // Занимает всю высоту
+        height: '100%',
     },
     forms_input: {
         borderWidth: 0.8,
-        borderColor: COLORS.PRIMARY_BORDER_GREY
-    }
+        borderColor: COLORS.PRIMARY_BORDER_GREY,
+    },
+
+    multilineContainer: {
+        width: '100%',
+        minHeight: 100,
+        borderRadius: 14,
+        backgroundColor: '#FFFFFF',
+        paddingHorizontal: 16,
+        paddingTop: 12,
+        paddingBottom: 12,
+        position: 'relative',
+        justifyContent: 'flex-start',
+    },
+    focusedContainer: {
+        borderColor: COLORS.PRIMARY_BORDER_GREY,
+        borderWidth: 1,
+    },
+    multilineInput: {
+        fontSize: 16,
+        color: '#000000',
+        padding: 0,
+        margin: 0,
+        minHeight: 80,
+        textAlignVertical: 'top',
+    },
+    floatingPlaceholder: {
+        position: 'absolute',
+        left: 16,
+        top: 12,
+        fontSize: 16,
+        color: COLORS.PRIMARY_PLACEHOLDER,
+        backgroundColor: 'transparent',
+        zIndex: 1,
+    },
 });
 
 export default StyledInput;

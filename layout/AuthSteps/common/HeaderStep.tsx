@@ -10,7 +10,7 @@ const HeaderStep:React.FC<HeaderStepProps> = ({title, subtitle}) => {
     return (
         <View style = {styles.header}>
             <StyledText variant="title" size="medium-large">{title}</StyledText>
-            {subtitle && <StyledText variant="subtitle-grey" size="small">{subtitle}</StyledText>}
+            {subtitle && <StyledText variant="subtitle-grey" size="small" style = {{maxWidth:315}}>{subtitle}</StyledText>}
         </View>
     );
 }

@@ -13,7 +13,7 @@ interface Slide1Props {
 const Step1:React.FC<Slide1Props> = ({onSwitchToLogin, nextStep}) => {
     return (
         <View style = {styles.step}>
-            <HeaderStep title="Создайте аккаунт" subtitle="Расскажите о себе, чтобы клиенты могли вас найти"/>
+            <HeaderStep title="Создайте аккаунт"/>
             <FormMainInfo role={Role.MASTER}/>
             <StyledButton lable="Продолжить" variant="forms-btn" onPress={nextStep}/>
             <SocialLogin/>

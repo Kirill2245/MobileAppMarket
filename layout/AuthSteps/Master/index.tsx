@@ -4,6 +4,9 @@ import StyledText from "@/components/StyledText";
 import React, { useState } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import Step1 from "./Steps/Step1";
+import Step2 from "./Steps/Step2";
+import Step3 from "./Steps/Step3";
+import Step4 from "./Steps/Step4";
 interface MasterSignProps {
     onSwitchToLogin: () => void;
 }
@@ -45,7 +48,9 @@ const MasterSign:React.FC<MasterSignProps> = ({onSwitchToLogin}) => {
     const renderStep = () => {
         switch(currentStep){
             case 1:return <Step1 onSwitchToLogin={onSwitchToLogin} nextStep={nextStep}/>
-
+            case 2: return <Step2 nextStep={nextStep}/>
+            case 3: return <Step3/>
+            case 4: return <Step4/>
         }
     }
     return (
