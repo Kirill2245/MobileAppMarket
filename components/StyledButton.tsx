@@ -20,7 +20,8 @@ type StyledButtonProps = TouchableOpacityProps & {
         'leave-btn'|
         'txt-btn'|
         'forms-btn'|
-        'forms-transparent-btn'
+        'forms-transparent-btn'|
+        'add-file-btn'
         ;
     sizeIcon?:number;
     colorIcon?:string;
@@ -29,7 +30,7 @@ type StyledButtonProps = TouchableOpacityProps & {
     children?: React.ReactNode;
     isActive?:boolean;
     variantText?:VariantText;
-    sizeText?:"medium" | "small"
+    sizeText?:"medium" | "small" | "ower-small"
 };
 const StyledButton: React.FC<StyledButtonProps> = (
         {
@@ -67,6 +68,7 @@ const StyledButton: React.FC<StyledButtonProps> = (
                 variant === 'txt-btn' ? styles.txt_btn : null,
                 variant === 'forms-btn' ? styles.forms_btn : null,
                 variant === 'forms-transparent-btn' ? styles.forms_transparent_btn : null,
+                variant === 'add-file-btn' ? styles.add_file_btn : null,
                 style,
             ]}
         >
@@ -187,6 +189,9 @@ const styles = StyleSheet.create({
         height:48,
         shadowColor:'transparent',
         gap:11
+    },
+    add_file_btn:{
+
     }
 })
 export default StyledButton

@@ -49,7 +49,7 @@ const MasterSign:React.FC<MasterSignProps> = ({onSwitchToLogin}) => {
         switch(currentStep){
             case 1:return <Step1 onSwitchToLogin={onSwitchToLogin} nextStep={nextStep}/>
             case 2: return <Step2 nextStep={nextStep}/>
-            case 3: return <Step3/>
+            case 3: return <Step3 nextStep={nextStep}/>
             case 4: return <Step4/>
         }
     }

@@ -17,7 +17,7 @@ const StyledInputLable: React.FC<StyledInputProps> = ({
     ...props 
 }) => {
     const sizeHeight = customLable ? (multiline ? 120 : 80.2) : (multiline ? 100 : 48);
-    
+
     return (
         <View style={[
             styles.conatinInputLable,

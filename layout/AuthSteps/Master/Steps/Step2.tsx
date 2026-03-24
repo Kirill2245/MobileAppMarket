@@ -55,6 +55,7 @@ const Step2:React.FC<Slide2Props> = ({nextStep}) => {
                                 variant="transparment-border" 
                                 style = {onSelectLeavel === index ? styles.leavelSkills_select : styles.leavelSkills } 
                                 onPress={() => setOnSelectLevel(index++)}
+                                key={index}
                             >
                                 <StyledText variant={onSelectLeavel === index ? "subtitle" : "subtitle-grey"}>
                                     {item}  
