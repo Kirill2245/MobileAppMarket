@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
     list:{
         flexDirection:'row',
         flexWrap:'wrap',
-        gap:8
+        gap:8,
+        marginBottom:16
     }
 })
 

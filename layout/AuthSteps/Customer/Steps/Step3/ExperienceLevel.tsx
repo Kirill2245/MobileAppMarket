@@ -1,17 +1,14 @@
 import { StyleSheet, View } from "react-native";
 
-const Step3 = () => {
+const ExperienceLevel = () => {
     return (
-        <View style = {styles.step}>
+        <View>
 
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    step:{
-        flex:1
-    }
+    
 })
-
-export default Step3
+export default ExperienceLevel
