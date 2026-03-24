@@ -7,23 +7,32 @@ const ProjectBudget = () => {
     const [price, setPrice] = useState(30000);
     const handlePriceChange = (newPrice: number) => {
         setPrice(newPrice);
-    };
+    }
+    const start = 10000
+    const end = 50000
     return (
         <View>
-            <StyledText>{`Бюджет проекта (${price}₽)`}</StyledText>
+            <StyledText variant="subtitle" size="small">{`Бюджет проекта (${price}₽)`}</StyledText>
+            <View style = {styles.priceContain}>
+                <StyledText variant="subtitle-grey" size="ower-small">{start}</StyledText>
+                <StyledText variant="subtitle-grey" size="ower-small">{end}</StyledText>
+            </View>
             <RangeSlider
-                minValue={0}
-                maxValue={100000}
+                minValue={start}
+                maxValue={end}
                 value={price}
                 onChange={handlePriceChange}
                 step={1000}
             />
-            
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-
+    priceContain:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        marginTop:12
+    }
 })
 export default ProjectBudget

@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         height: 60,
         justifyContent: 'center',
-        marginVertical: 20,
+        marginVertical: 0,
     },
     touchableTrack: {
         position: 'absolute',
