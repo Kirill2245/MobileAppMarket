@@ -37,10 +37,13 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
     const startX = useRef<number>(0);
     const startValue = useRef<number>(0);
     const containerX = useRef<number>(0);
-
+    const isDragging = useRef<boolean>(false);
+    const hasMoved = useRef<boolean>(false);
 
     useEffect(() => {
-        updatePosition(value);
+        if (!isDragging.current) {
+            updatePosition(value);
+        }
     }, [value]);
 
     const measureContainerPosition = () => {
@@ -64,10 +67,12 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
     };
 
     const handlePanMove = (evt: GestureResponderEvent) => {
-        if (!sliderWidth || !evt.nativeEvent) return;
+        if (!sliderWidth || !evt.nativeEvent || !isDragging.current) return;
         
         const pageX = evt.nativeEvent.pageX;
         if (!pageX) return;
+        
+        hasMoved.current = true;
         
         const currentX = pageX - containerX.current;
         const deltaX = currentX - startX.current;
@@ -78,7 +83,6 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
         const steppedValue = Math.round(newValue / step) * step;
         const finalValue = Math.min(Math.max(steppedValue, minValue), maxValue);
         
-
         onChange?.(finalValue);
     };
 
@@ -92,7 +96,9 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
                 const pageX = evt.nativeEvent.pageX;
                 if (!pageX) return;
                 
-
+                isDragging.current = true;
+                hasMoved.current = false;
+                
                 measureContainerPosition();
                 
                 startX.current = pageX - containerX.current;
@@ -102,18 +108,24 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
                 handlePanMove(evt);
             },
             onPanResponderRelease: () => {
-
+                isDragging.current = false;
+                hasMoved.current = false;
             },
             onPanResponderTerminate: () => {
-
+                isDragging.current = false;
+                hasMoved.current = false;
             },
         })
     ).current;
 
     const handleTrackPress = (event: any) => {
+        if (hasMoved.current || isDragging.current) return;
+        
         if (!sliderWidth) return;
         
         const { locationX } = event.nativeEvent;
+        if (locationX === undefined) return;
+        
         const newValue = valueFromPosition(locationX);
         onChange?.(newValue);
     };
