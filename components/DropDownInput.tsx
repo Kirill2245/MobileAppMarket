@@ -2,6 +2,7 @@ import { COLORS } from "@/constants/color.const";
 import { DropdownInputProps, DropdownItem } from "@/types/drop-input-props.type";
 import React, { useRef, useState } from "react";
 import {
+    Dimensions,
     FlatList,
     Modal,
     StyleSheet,
@@ -14,7 +15,7 @@ import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import StyledText from "./StyledText";
 
-
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const DropdownInput: React.FC<DropdownInputProps> = ({
     items,
@@ -24,7 +25,7 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
     variant = 'forms-input',
     disabled = false,
     error,
-    dropdownHeight = 200,
+    dropdownHeight = 300,
     searchable = false,
     searchPlaceholder = "Поиск...",
     containerStyle,
@@ -35,7 +36,6 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
     ...props
 }) => {
     const [isVisible, setIsVisible] = useState(false);
-    const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
     const [searchQuery, setSearchQuery] = useState("");
     const containerRef = useRef<View>(null);
     const inputRef = useRef<any>(null);
@@ -48,21 +48,8 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
         )
         : items;
 
-    const measurePosition = () => {
-        if (containerRef.current) {
-            containerRef.current.measure((x, y, width, height, pageX, pageY) => {
-                setPosition({
-                    top: pageY + height + 5,
-                    left: pageX,
-                    width: width,
-                });
-            });
-        }
-    };
-
     const handleOpen = () => {
         if (disabled) return;
-        measurePosition();
         setIsVisible(true);
         setSearchQuery("");
     };
@@ -148,75 +135,74 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
             >
                 <TouchableWithoutFeedback onPress={handleClose}>
                     <View style={styles.modalOverlay}>
-                        <View 
-                            style={[
-                                styles.dropdown,
-                                {
-                                    top: position.top,
-                                    left: position.left,
-                                    width: position.width,
-                                    maxHeight: dropdownHeight,
-                                }
-                            ]}
-                        >
-                            {searchable && (
-                                <View style={styles.searchContainer}>
-                                    <Icon name="search" size={18} color={COLORS.PRIMARY_PLACEHOLDER} />
-                                    <TextInput
-                                        style={styles.searchInput}
-                                        placeholder={searchPlaceholder}
-                                        placeholderTextColor={COLORS.PRIMARY_PLACEHOLDER}
-                                        value={searchQuery}
-                                        onChangeText={setSearchQuery}
-                                        autoFocus
-                                    />
-                                    {searchQuery.length > 0 && (
-                                        <TouchableOpacity onPress={() => setSearchQuery("")}>
-                                            <Icon name="close" size={18} color={COLORS.PRIMARY_PLACEHOLDER} />
-                                        </TouchableOpacity>
+                        <TouchableWithoutFeedback>
+                            <View style={styles.modalContent}>
+                                <View style={[
+                                    styles.dropdown,
+                                    {
+                                        maxHeight: dropdownHeight,
+                                    }
+                                ]}>
+                                    {searchable && (
+                                        <View style={styles.searchContainer}>
+                                            <Icon name="search" size={18} color={COLORS.PRIMARY_PLACEHOLDER} />
+                                            <TextInput
+                                                style={styles.searchInput}
+                                                placeholder={searchPlaceholder}
+                                                placeholderTextColor={COLORS.PRIMARY_PLACEHOLDER}
+                                                value={searchQuery}
+                                                onChangeText={setSearchQuery}
+                                                autoFocus
+                                            />
+                                            {searchQuery.length > 0 && (
+                                                <TouchableOpacity onPress={() => setSearchQuery("")}>
+                                                    <Icon name="close" size={18} color={COLORS.PRIMARY_PLACEHOLDER} />
+                                                </TouchableOpacity>
+                                            )}
+                                        </View>
                                     )}
-                                </View>
-                            )}
 
-                            <FlatList
-                                data={filteredItems}
-                                keyExtractor={(item) => item.value.toString()}
-                                showsVerticalScrollIndicator={true}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity
-                                        style={[
-                                            styles.dropdownItem,
-                                            selectedItem?.value === item.value && styles.selectedItem
-                                        ]}
-                                        onPress={() => handleSelect(item)}
-                                    >
-                                        <StyledText 
-                                            size="medium"
-                                            style={[
-                                                styles.dropdownItemText,
-                                                selectedItem?.value === item.value && styles.selectedItemText
-                                            ]}
-                                        >
-                                            {item.label}
-                                        </StyledText>
-                                        {selectedItem?.value === item.value && (
-                                            <Icon name="checkmark" size={18} color={COLORS.PRIMARY_BUTTON_TEXT} />
+                                    <FlatList
+                                        data={filteredItems}
+                                        keyExtractor={(item) => item.value.toString()}
+                                        showsVerticalScrollIndicator={true}
+                                        renderItem={({ item }) => (
+                                            <TouchableOpacity
+                                                style={[
+                                                    styles.dropdownItem,
+                                                    selectedItem?.value === item.value && styles.selectedItem
+                                                ]}
+                                                onPress={() => handleSelect(item)}
+                                            >
+                                                <StyledText 
+                                                    size="medium"
+                                                    style={[
+                                                        styles.dropdownItemText,
+                                                        selectedItem?.value === item.value && styles.selectedItemText
+                                                    ]}
+                                                >
+                                                    {item.label}
+                                                </StyledText>
+                                                {selectedItem?.value === item.value && (
+                                                    <Icon name="checkmark" size={18} color={COLORS.PRIMARY_BUTTON_TEXT} />
+                                                )}
+                                            </TouchableOpacity>
                                         )}
-                                    </TouchableOpacity>
-                                )}
-                                ListEmptyComponent={
-                                    <View style={styles.emptyContainer}>
-                                        <StyledText 
-                                            size="small" 
-                                            variant="subtitle-grey"
-                                            style={styles.emptyText}
-                                        >
-                                            Ничего не найдено
-                                        </StyledText>
-                                    </View>
-                                }
-                            />
-                        </View>
+                                        ListEmptyComponent={
+                                            <View style={styles.emptyContainer}>
+                                                <StyledText 
+                                                    size="small" 
+                                                    variant="subtitle-grey"
+                                                    style={styles.emptyText}
+                                                >
+                                                    Ничего не найдено
+                                                </StyledText>
+                                            </View>
+                                        }
+                                    />
+                                </View>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>
@@ -242,6 +228,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         margin: 0,
         paddingVertical: 1,
+        borderWidth: 1,
+        borderColor: '#ffffff00',
     },
     inputBase: {
         fontSize: 16,
@@ -261,7 +249,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     errorBorder: {
-        borderColor: COLORS.PRYMARY_RED_COLOR|| '#FF3B30',
+        borderColor: COLORS.PRYMARY_RED_COLOR || '#FF3B30',
         borderWidth: 1,
     },
     errorText: {
@@ -271,9 +259,16 @@ const styles = StyleSheet.create({
     modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        width: SCREEN_WIDTH * 0.85, // 85% от ширины экрана
+        maxWidth: 400, // Максимальная ширина
+        borderRadius: 14,
+        overflow: 'hidden',
     },
     dropdown: {
-        position: 'absolute',
         backgroundColor: '#FFFFFF',
         borderRadius: 14,
         borderWidth: 1,
@@ -286,7 +281,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        zIndex: 1000,
         overflow: 'hidden',
     },
     searchContainer: {

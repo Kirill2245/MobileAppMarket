@@ -48,7 +48,7 @@ const CustomerSign:React.FC<CustomerSignProps> = ({onSwitchToLogin}) => {
     const renderStep = () => {
         switch(currentStep){
             case 1:return <Step1 onSwitchToLogin={onSwitchToLogin} nextStep={nextStep}/>
-            case 2: return <Step2 />
+            case 2: return <Step2 nextStep={nextStep}/>
             case 3: return <Step3 />
         }
     }
