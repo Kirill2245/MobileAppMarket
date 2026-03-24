@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import ExperienceLevel from "./ExperienceLevel";
 import HiringFrequency from "./HiringFrequency";
 import ProjectBudget from "./ProjectBudget";
+import SettingsAI from "./SettingsAI";
 
 const Step3 = () => {
     const {AuthUser} = useAuth()
@@ -15,6 +16,7 @@ const Step3 = () => {
                 <ProjectBudget/>
                 <HiringFrequency/>
                 <ExperienceLevel/>
+                <SettingsAI/>
             </View>
             <StyledButton lable="Завершить регистрацию" variant="forms-btn" onPress={AuthUser}/>
         </View>
