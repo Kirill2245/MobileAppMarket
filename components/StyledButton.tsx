@@ -191,7 +191,13 @@ const styles = StyleSheet.create({
         gap:11
     },
     add_file_btn:{
-
+        minHeight:160,
+        borderRadius:16,
+        backgroundColor:'transparent',
+        shadowColor:'transparent',
+        borderStyle: "dashed",
+        borderColor:COLORS.PRIMARY_BORDER_GREY,
+        borderWidth:1.6
     }
 })
 export default StyledButton

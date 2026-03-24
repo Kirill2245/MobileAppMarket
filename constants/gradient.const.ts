@@ -35,5 +35,11 @@ export const GRADIENTS = {
     locations: [0, 1] as const,
     start: { x: 0, y: 0 },
     end: { x: 0, y: 1 }
-  }
+  },
+  PRIMARY_DIAGONAL_THREE: {
+    colors: ['#b7c5f923', '#b7c5f973', '#b7c5f929'] as const,
+    locations: [0, 0.5, 1] as const,
+    start: { x: 0, y: 0 },
+    end: { x: 1, y: 1 }
+  },
 } as const;
