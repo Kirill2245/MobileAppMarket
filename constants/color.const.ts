@@ -18,7 +18,8 @@ export const COLORS = {
     ICON_GREY_COLOR:'#6E6E73',
     SEMI_BLUE_COLOR:'#B7C5F9',
     SVG_BG:'#F9F9F9',
-    BG_CARD_ACTIVE:"#F2F2F7"
+    BG_CARD_ACTIVE:"#F2F2F7",
+    LIGHT_GREY:'#F5F5F7'
 }
 
 export const GRADIENT_PRYMARY_BG = {

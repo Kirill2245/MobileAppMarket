@@ -17,8 +17,9 @@ const Step3 = () => {
                 <HiringFrequency/>
                 <ExperienceLevel/>
                 <SettingsAI/>
+                <StyledButton lable="Завершить регистрацию" variant="forms-btn" onPress={AuthUser}/>
             </View>
-            <StyledButton lable="Завершить регистрацию" variant="forms-btn" onPress={AuthUser}/>
+            
         </View>
     );
 }
