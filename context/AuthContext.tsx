@@ -1,29 +1,14 @@
-
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { authApi } from '@/api/endpoints/auth';
+import { LoginDto, User } from '@/api/types/auth.types';
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface AuthContextType {
-  isAuthFormOpen: boolean;
-  isLoginFormOpen:boolean;
-  isSignUpOpen:boolean;
-  isAuthUser:boolean
-  openAuthForm: () => void;
-  openLoginForm: () => void;
-  openSignUpForm: () => void;
-  closeAuthForm: () => void;
-  closeLoginForm: () => void;
-  closeSignUpForm:() => void;
-  toggleAuthForm: () => void;
-  AuthUser: () => void;
   user: User | null;
-  login: (userData: User) => void;
-  logout: () => void;
-}
-
-interface User {
-  id: string | number;
-  name: string;
-  email?: string;
-  // другие поля пользователя
+  loading: boolean;
+  isAuthUser: boolean;
+  login: (dto:LoginDto) => Promise<User>;
+  logout: () => Promise<void>;
+  checkAuth: () => Promise<void>;
 }
 
 // Создаем контекст с дефолтными значениями
@@ -34,67 +19,82 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthFormOpen, setIsAuthFormOpen] = useState<boolean>(false);
-  const [isLoginFormOpen, setIsLoginFormOpen] = useState<boolean>(false)
-  const [isSignUpOpen, setIsSignUpOpen] = useState<boolean>(false)
-  const [user, setUser] = useState<User | null>({id:1,name:'Ruslan228'});
-  const [isAuthUser, setIsAuthUser] = useState<boolean>(false)
-  const openAuthForm = () => {
-    setIsAuthFormOpen(true);
-    setIsSignUpOpen(true)
-  };
-  const openLoginForm = () => {
-    setIsLoginFormOpen(true)
-    setIsSignUpOpen(false)
-  }
-  const openSignUpForm = () => {
-    setIsSignUpOpen(true)
-    setIsLoginFormOpen(false)
-  }
-  const closeAuthForm = () => {
-    setIsAuthFormOpen(false);
-  };
-  const closeLoginForm = () => {
-    setIsLoginFormOpen(false)
-  }
-  const closeSignUpForm = () => {
-    setIsSignUpOpen(false)
-  }
-  const toggleAuthForm = () => {
-    setIsAuthFormOpen(prev => !prev);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [isAuthUser, setIsAuthUser] = useState<boolean>(false);
+
+  // Проверка авторизации при загрузке
+  const checkAuth = async () => {
+    console.log('🔍 checkAuth started');
+    try {
+      setLoading(true);
+      setUser(null)
+      const userData = await authApi.getMe();
+      
+      if (userData && userData.email) {
+        setUser(userData);
+        setIsAuthUser(true);
+        console.log('✅ isAuthUser set to TRUE', userData);
+      } else {
+        console.log('❌ Invalid user data');
+        setUser(null);
+        setIsAuthUser(false);
+      }
+    } catch (error) {
+      console.log('❌ checkAuth error:', error);
+      setUser(null);
+      setIsAuthUser(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const login = (userData: User) => {
-    setUser(userData);
-    closeLoginForm(); // Закрываем форму после успешного входа
-    // Можно добавить сохранение в AsyncStorage
+  // Вход
+  const login = async (dto:LoginDto): Promise<User> => {
+    try {
+      setLoading(true);
+      const response = await authApi.login(dto);
+      
+      if (response.user) {
+        setUser(response.user);
+        setIsAuthUser(true);
+        return response.user;
+      }
+      
+      throw new Error(response.message || 'Login failed');
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const logout = () => {
-    setUser(null);
-    setIsAuthUser(false)
-    // Можно добавить очистку AsyncStorage
+  // Выход
+  const logout = async () => {
+    try {
+      setLoading(true);
+      await authApi.logout();
+      setUser(null);
+      setIsAuthUser(false);
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setLoading(false);
+    }
   };
-  
-  const AuthUser = () => {
-    setIsAuthUser(true)
-  }
+
+  // Проверяем авторизацию при монтировании
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   const value: AuthContextType = {
-    isAuthUser,
-    isAuthFormOpen,
-    isLoginFormOpen,
-    isSignUpOpen,
-    openAuthForm,
-    openLoginForm,
-    openSignUpForm,
-    closeAuthForm,
-    closeLoginForm,
-    closeSignUpForm,
-    toggleAuthForm,
-    AuthUser,
     user,
+    loading,
+    isAuthUser,
     login,
     logout,
+    checkAuth,
   };
 
   return (

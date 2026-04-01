@@ -7,9 +7,9 @@ import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 
 interface CardProfileProps{
-    firstName:string;
-    lastName:string;
-    image:string;
+    firstName?:string;
+    lastName?:string;
+    titleImg?:string;
     location?:string;
     createdAt:string;
     specialization?:string;
@@ -18,7 +18,7 @@ const CardProfile:React.FC<CardProfileProps> = (props: CardProfileProps) => {
     return (
         <View style = {styles.card}>
             <Image
-                source={{ uri: props.image }}
+                source={{ uri: props.titleImg}}
                 style = {styles.image}
             />
             <View style = {styles.containInfo}>
