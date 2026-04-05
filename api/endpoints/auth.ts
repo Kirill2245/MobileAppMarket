@@ -1,13 +1,10 @@
+import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
 import { API_ENDPOINTS } from '../../config/api.config';
 import { apiClient } from '../client';
 import { LoginDto, LoginResponse, RegisterDto, RegistrResponse } from '../types/auth.types';
-
 class AuthApi {
-  /**
-   * Вход в систему
-   * @param data - данные для входа (email, password, optional code)
-   * @returns Promise с данными пользователя или сообщением о 2FA
-   */
+
   async login(data: LoginDto): Promise<LoginResponse> {
     try{
       const response = await apiClient.post<LoginResponse>(
@@ -76,6 +73,72 @@ class AuthApi {
       }
   }
 
+  async getOAuthUrl(method: string): Promise<string> {
+      try {
+          // Добавляем заголовок, чтобы сервер знал, что это мобильное приложение
+          const response = await apiClient.get<{ url: string }>(
+              `${API_ENDPOINTS.AUTH.OAUTH_CONNECT}/${method}`,
+              {
+                  headers: {
+                      'X-Mobile-App': 'true'
+                  }
+              }
+          );
+          return response.url;
+      } catch (err) {
+          console.error('Error getting OAuth URL:', err);
+          throw err;
+      }
+    }
+
+    async oAuthLogin(method: string): Promise<any> {
+        try {
+            const authUrl = await this.getOAuthUrl(method);
+            console.log('Opening OAuth URL:', authUrl);
+
+            // Используем кастомную схему для возврата
+            const redirectUri = Linking.createURL('auth/callback');
+            console.log('Redirect URI:', redirectUri);
+
+            const result = await WebBrowser.openAuthSessionAsync(authUrl, redirectUri);
+            console.log('Browser result:', result);
+
+            if (result.type === 'success') {
+                // Извлекаем код и провайдера из URL
+                const { queryParams } = Linking.parse(result.url);
+                const code = queryParams?.code as string;
+                const provider = queryParams?.provider as string;
+                
+                console.log('Extracted code:', code);
+                console.log('Provider:', provider);
+                
+                if (code && provider) {
+                    // Отправляем код на сервер для получения токена
+                    return await this.exchangeCodeForToken(provider, code);
+                }
+            } else if (result.type === 'cancel') {
+                throw new Error('Авторизация была отменена');
+            }
+
+            throw new Error('Не удалось получить код авторизации');
+        } catch (err) {
+            console.error('OAuth login error:', err);
+            throw err;
+        }
+    }
+
+    async exchangeCodeForToken(method: string, code: string): Promise<any> {
+        try {
+            const response = await apiClient.post(
+                `${API_ENDPOINTS.AUTH.OAUTH_CALLBACK}/${method}`,
+                { code }
+            );
+            return response;
+        } catch (err) {
+            console.error('Error exchanging code for token:', err);
+            throw err;
+        }
+    }
   /**
    * Получение текущего пользователя (проверка сессии)
    */

@@ -16,6 +16,8 @@ export interface RegisterDto {
     role: Role
 }
 
+
+
 export interface LoginResponse {
   user: User;
   message?: string; // Для случая с 2FA

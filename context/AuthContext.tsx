@@ -9,6 +9,7 @@ interface AuthContextType {
   login: (dto:LoginDto) => Promise<User>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  setOAuth: (user:User) => void
 }
 
 // Создаем контекст с дефолтными значениями
@@ -48,6 +49,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setLoading(false);
     }
   };
+
+  const setOAuth = (user:User) => {
+    setUser(user)
+    setIsAuthUser(true)
+  }
 
   // Вход
   const login = async (dto:LoginDto): Promise<User> => {
@@ -95,6 +101,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     logout,
     checkAuth,
+    setOAuth
   };
 
   return (

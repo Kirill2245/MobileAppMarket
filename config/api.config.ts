@@ -25,6 +25,8 @@ export const API_ENDPOINTS = {
     LOGOUT: '/auth/logout',
     REGISTER:'/auth/register',
     ME: '/user-profile/my-profile',
+    OAUTH_CONNECT: '/auth/oauth/connect',  // Изменено
+    OAUTH_CALLBACK: '/auth/oauth/callback' // Добавлено
   },
   USER: {
     PROFILE: '/user-profile',
