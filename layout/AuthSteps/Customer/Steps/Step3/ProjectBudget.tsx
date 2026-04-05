@@ -3,17 +3,20 @@ import StyledText from "@/components/StyledText";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-const ProjectBudget = () => {
+const ProjectBudget = ({ onBudgetChange }: { onBudgetChange: (value: number) => void }) => {
     const [price, setPrice] = useState(30000);
+    
     const handlePriceChange = (newPrice: number) => {
         setPrice(newPrice);
+        onBudgetChange(newPrice);
     }
+    
     const start = 10000
     const end = 50000
     return (
         <View>
             <StyledText variant="subtitle" size="small">{`Бюджет проекта (${price}₽)`}</StyledText>
-            <View style = {styles.priceContain}>
+            <View style={styles.priceContain}>
                 <StyledText variant="subtitle-grey" size="ower-small">{start}</StyledText>
                 <StyledText variant="subtitle-grey" size="ower-small">{end}</StyledText>
             </View>

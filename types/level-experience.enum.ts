@@ -1,5 +1,5 @@
-export enum LevelExperience{
-    'Начинающий',
-    'Средний',
-    'Эксперт'
+export enum LevelExperience {
+    BEGINNER = 'Начинающий',
+    INTERMEDIATE = 'Средний',
+    EXPERT = 'Эксперт'
 }

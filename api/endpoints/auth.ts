@@ -1,3 +1,4 @@
+import { errorProcessing } from '@/helpers/errorProcessing';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import { API_ENDPOINTS } from '../../config/api.config';
@@ -13,7 +14,7 @@ class AuthApi {
       );
       return response;
     }catch(err){
-      throw err
+      throw errorProcessing(err, 'Входе')
     }
 
   }
@@ -32,48 +33,11 @@ class AuthApi {
           
       } catch (error: any) {
           console.error('❌ Register error caught in service');
-        
-          let errorMessage = 'Произошла ошибка при регистрации';
-          
-          if (error.response) {
-
-              const serverData = error.response.data;
-              
-              if (serverData.message) {
-                  if (Array.isArray(serverData.message)) {
-
-                      errorMessage = serverData.message.join('\n');
-                  } else {
-
-                      errorMessage = serverData.message;
-                  }
-              } else if (serverData.error) {
-                  errorMessage = serverData.error;
-              }
-              
-              console.log('📋 Server error details:', {
-                  status: error.response.status,
-                  message: errorMessage
-              });
-          } else if (error.request) {
-
-              errorMessage = 'Нет соединения с сервером. Проверьте интернет-соединение.';
-              console.log('🌐 Network error:', error.message);
-          } else {
-
-              errorMessage = error.message || 'Неизвестная ошибка';
-          }
-          
-          const enhancedError: any = new Error(errorMessage);
-          enhancedError.originalError = error;
-          enhancedError.statusCode = error.response?.status;
-          enhancedError.serverData = error.response?.data;
-          
-          throw enhancedError;
+          throw errorProcessing(error, 'Регистрации')
       }
   }
 
-  async getOAuthUrl(method: string): Promise<string> {
+    async getOAuthUrl(method: string): Promise<string> {
       try {
           // Добавляем заголовок, чтобы сервер знал, что это мобильное приложение
           const response = await apiClient.get<{ url: string }>(
@@ -143,12 +107,18 @@ class AuthApi {
    * Получение текущего пользователя (проверка сессии)
    */
   async getMe(): Promise<any> {
-    const response = await apiClient.get<any>(API_ENDPOINTS.AUTH.ME);
-    if (!response) {
-      console.log('❌ getMe: response is undefined');
-      throw new Error('Response is undefined');
+    try{
+        const response = await apiClient.get<any>(API_ENDPOINTS.AUTH.ME);
+        if (!response) {
+        console.log('❌ getMe: response is undefined');
+        throw new Error('Response is undefined');
+        }
+        return response;
     }
-    return response;
+    catch(err){
+        throw errorProcessing(err, 'Получении пользователя')
+    }
+
   }
 
   /**

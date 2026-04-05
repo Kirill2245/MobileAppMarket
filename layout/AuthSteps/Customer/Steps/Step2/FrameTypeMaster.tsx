@@ -3,16 +3,25 @@ import StyledInputLable from "@/components/StyledInputLable";
 import StyledText from "@/components/StyledText";
 import { COLORS } from "@/constants/color.const";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-const FrameTypeMaster = () => {
+interface FrameTypeMasterProps {
+    onDataChange: (specialists: string[]) => void;
+}
+
+const FrameTypeMaster: React.FC<FrameTypeMasterProps> = ({ onDataChange }) => {
     const [select, setSelect] = useState('')
     const [selectMaster, setSelectMaster] = useState<number[]>([])
     const items = [
         { label: 'Социальные сети', value: 'option1' },
     ]
     const masters = ["Дизайнеры", "Разработчики", "Копирайтеры", "Маркетологи"]
+
+    useEffect(() => {
+        const selectedSpecialists = selectMaster.map(index => masters[index]);
+        onDataChange(selectedSpecialists);
+    }, [selectMaster]);
     return (
         <View style = {styles.frame}>
             <View style = {styles.header}>

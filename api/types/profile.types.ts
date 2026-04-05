@@ -1,4 +1,4 @@
-import { HiringFrequency } from "@/types/hiring-frequency.enum";
+import { HiringFrequencyEnum } from "@/types/hiring-frequency.enum";
 import { LevelExperience } from "@/types/level-experience.enum";
 
 
@@ -9,7 +9,7 @@ export interface CreateCustomerProfileDto{
         industry:string
         typeSpecialists:string[]
         budget:number
-        hiringFrequency:HiringFrequency
+        hiringFrequency:HiringFrequencyEnum
         preferenceLevelExperience: LevelExperience
     };
     userProfile?:{

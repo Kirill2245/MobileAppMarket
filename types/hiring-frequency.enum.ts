@@ -1,6 +1,6 @@
-export enum HiringFrequency{
-    'Еженедельно',
-    'Ежемесячно',
-    'Ежеквартально',
-    'Иногда',
+export enum HiringFrequencyEnum {
+    WEEKLY = 'Еженедельно',
+    MONTHLY = 'Ежемесячно',
+    QUARTERLY = 'Ежеквартально',
+    SOMETIMES = 'Иногда'
 }

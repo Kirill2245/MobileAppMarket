@@ -7,7 +7,7 @@ import { useApiError } from "@/hooks/useFormError";
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from 'expo-secure-store';
 import { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 const Form = () => {
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
@@ -17,11 +17,6 @@ const Form = () => {
     const { clearError } = useAuthApi();
     const { handleApiError, showSuccess } = useApiError();
     const handleLogin = async () => {
-        if (!email || !onPassword) {
-            Alert.alert('Error', 'Please enter email and password');
-            return;
-        }
-
         try {
             clearError();
             
@@ -36,7 +31,6 @@ const Form = () => {
 
         } catch (err: any) {
             handleApiError(err, 'Login');
-            console.error('Login error:', err);
         }
     };
     return (

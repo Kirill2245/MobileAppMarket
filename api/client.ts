@@ -44,6 +44,9 @@ class ApiClient {
         if (response.config.url?.includes('/auth/login') && response.data?.sessionId) {
           await SecureStore.setItemAsync(this.SESSION_KEY, response.data.sessionId);
         }
+        if (response.config.url?.includes('/auth/register') && response.data?.sessionId) {
+          await SecureStore.setItemAsync(this.SESSION_KEY, response.data.sessionId);
+        }
         
         return response;
       },

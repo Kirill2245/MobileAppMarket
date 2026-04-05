@@ -1,9 +1,10 @@
 import StyledButton from "@/components/StyledButton";
 import StyledText from "@/components/StyledText";
-import { useState } from "react";
+import { HiringFrequencyEnum } from "@/types/hiring-frequency.enum";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-const HiringFrequency = () => {
+const HiringFrequency = ({ onFrequencyChange }: { onFrequencyChange: (value: HiringFrequencyEnum) => void }) => {
     const list = ["Еженедельно", "Ежемесячно", "Ежеквартально", "Иногда"]
     const [selectHiring, setSelectHiring] = useState<string>("") 
     const rows = [];
@@ -11,10 +12,16 @@ const HiringFrequency = () => {
         rows.push(list.slice(i, i + 2));
     }
     
+    useEffect(() => {
+        if (selectHiring) {
+            onFrequencyChange(selectHiring as HiringFrequencyEnum);
+        }
+    }, [selectHiring]);
+    
     return (
-        <View style = {styles.contain}>
+        <View style={styles.contain}>
             <StyledText variant="subtitle" size="small">Частота найма</StyledText>
-            <View style = {styles.tab}>
+            <View style={styles.tab}>
                 {rows.map((row, rowIndex) => (
                     <View key={rowIndex} style={styles.row}>
                         {row.map((itemRow, index) => (
@@ -25,8 +32,7 @@ const HiringFrequency = () => {
                                 onPress={() => {
                                     setSelectHiring(itemRow) 
                                 }}
-                            >
-                            </StyledButton>
+                            />
                         ))}
                     </View>
                 ))}

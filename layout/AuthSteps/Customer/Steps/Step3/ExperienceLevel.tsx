@@ -1,9 +1,10 @@
 import StyledButton from "@/components/StyledButton";
 import StyledText from "@/components/StyledText";
-import { useState } from "react";
+import { LevelExperience } from "@/types/level-experience.enum";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-const ExperienceLevel = () => {
+const ExperienceLevel = ({ onLevelChange }: { onLevelChange: (value: LevelExperience) => void }) => {
     const [selectExperienceLevel, setSelectExperienceLevel] = useState<string>("") 
     const data = [
         {
@@ -19,23 +20,30 @@ const ExperienceLevel = () => {
             subtitle:"5+ лет"
         },
     ]
+    
+    useEffect(() => {
+        if (selectExperienceLevel) {
+            onLevelChange(selectExperienceLevel as LevelExperience);
+        }
+    }, [selectExperienceLevel]);
+    
     return (
-        <View style = {styles.contain}>
+        <View style={styles.contain}>
             <StyledText variant="subtitle" size="small">Уровень опыта</StyledText>
             <StyledText variant="subtitle-grey" size="ower-small">Выберите один или несколько вариантов</StyledText>
-            <View style = {styles.list}>
+            <View style={styles.list}>
                 {data.map((item,index) => (
                     <StyledButton  
                         key={index} 
-                        style = {{minHeight:71.19}}
+                        style={{minHeight:71.19}}
                         variant={selectExperienceLevel === item.title ? "tags-btn-active" : "tags-btn"}
-                                onPress={() => {
-                                    setSelectExperienceLevel(item.title) 
-                                }}
+                        onPress={() => {
+                            setSelectExperienceLevel(item.title) 
+                        }}
                     >
-                        <View style = {styles.textBox}>
-                            <StyledText variant="subtitle" size="small" style = {{width:'100%'}}>{item.title}</StyledText>
-                            <StyledText variant="subtitle-grey" size="ower-small" style = {{width:'100%'}}>{item.subtitle}</StyledText>
+                        <View style={styles.textBox}>
+                            <StyledText variant="subtitle" size="small" style={{width:'100%'}}>{item.title}</StyledText>
+                            <StyledText variant="subtitle-grey" size="ower-small" style={{width:'100%'}}>{item.subtitle}</StyledText>
                         </View>
                     </StyledButton>
                 ))}

@@ -11,7 +11,28 @@ interface CustomerSignProps {
     onSwitchToLogin: () => void;
 }
 const CustomerSign:React.FC<CustomerSignProps> = ({onSwitchToLogin}) => {
+
     const [currentStep, setCurrentStep] = useState(1);
+    const [step2Data, setStep2Data] = useState({
+        nameCompany: '',
+        sizeCompany: '',
+        industry: '',
+        typeSpecialists: [] as string[]
+    });
+    
+    const handleStep2DataChange = (data: {
+        nameCompany?: string;
+        sizeCompany: string;
+        industry: string;
+        typeSpecialists: string[];
+    }) => {
+        setStep2Data({
+            nameCompany: data.nameCompany || '',
+            sizeCompany: data.sizeCompany,
+            industry: data.industry,
+            typeSpecialists: data.typeSpecialists
+        });
+    };
     const fadeAnim = useState(new Animated.Value(1))[0];
     
     const backStep = () => {
@@ -48,8 +69,8 @@ const CustomerSign:React.FC<CustomerSignProps> = ({onSwitchToLogin}) => {
     const renderStep = () => {
         switch(currentStep){
             case 1:return <Step1 onSwitchToLogin={onSwitchToLogin} nextStep={nextStep}/>
-            case 2: return <Step2 nextStep={nextStep}/>
-            case 3: return <Step3 />
+            case 2: return <Step2 nextStep={nextStep} onDataChange={handleStep2DataChange}/>
+            case 3: return <Step3 step2Data={step2Data}/>
         }
     }
     return (
