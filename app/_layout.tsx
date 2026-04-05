@@ -1,13 +1,24 @@
 import { AuthProvider } from '@/context/AuthContext';
+import { ToastProvider, useToast } from '@/context/ToastContext';
+import { setGlobalToastCallback, setupGlobalErrorHandlers } from '@/utils/globalErrorHandler';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import 'react-native-reanimated';
 
 export const unstable_settings = {
   anchor: '(tabs)',
 };
-
+const GlobalErrorInitializer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { showToast } = useToast();
+    
+    React.useEffect(() => {
+        setGlobalToastCallback(showToast);
+        setupGlobalErrorHandlers();
+    }, [showToast]);
+    
+    return <>{children}</>;
+};
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [fontsLoaded, error] = useFonts({
@@ -25,10 +36,14 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <AuthProvider>
-      <Stack screenOptions={{headerShown: false}}>
-        <Stack.Screen name="index" />
-      </Stack>
-    </AuthProvider>
+    <ToastProvider>
+      <GlobalErrorInitializer>
+        <AuthProvider>
+          <Stack screenOptions={{headerShown: false}}>
+            <Stack.Screen name="index" />
+          </Stack>
+        </AuthProvider>
+      </GlobalErrorInitializer>
+    </ToastProvider>
   );
 }

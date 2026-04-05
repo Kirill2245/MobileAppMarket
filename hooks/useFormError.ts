@@ -1,47 +1,41 @@
-// hooks/useFormError.ts
-import { useCallback, useState } from 'react';
+// hooks/useApiError.ts
+import { useToast } from '@/context/ToastContext';
 import { logError, parseServerError } from '../utils/error-handler';
 
-export const useFormError = () => {
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
-    const [generalError, setGeneralError] = useState<string | null>(null);
+export const useApiError = () => {
+    const { showToast } = useToast();
 
-    const handleError = useCallback((error: any, context?: string) => {
-        // Логируем ошибку
+    const handleApiError = (error: any, context?: string) => {
         logError(error, context);
-        
-        // Парсим ошибку
         const parsedError = parseServerError(error);
         
-        // Устанавливаем ошибки полей
-        setErrors(parsedError.fields);
-        
-        // Устанавливаем общую ошибку
-        setGeneralError(parsedError.general || null);
+        if (parsedError.general) {
+            showToast(parsedError.general, 'error');
+        } else if (Object.keys(parsedError.fields).length > 0) {
+            // Показываем первую ошибку валидации
+            const firstError = Object.values(parsedError.fields)[0];
+            showToast(firstError, 'error');
+        }
         
         return parsedError;
-    }, []);
+    };
 
-    const clearErrors = useCallback(() => {
-        setErrors({});
-        setGeneralError(null);
-    }, []);
+    const showSuccess = (message: string) => {
+        showToast(message, 'success');
+    };
 
-    const clearFieldError = useCallback((field: string) => {
-        setErrors(prev => {
-            const newErrors = { ...prev };
-            delete newErrors[field];
-            return newErrors;
-        });
-    }, []);
+    const showInfo = (message: string) => {
+        showToast(message, 'info');
+    };
+
+    const showWarning = (message: string) => {
+        showToast(message, 'warning');
+    };
 
     return {
-        errors,
-        generalError,
-        handleError,
-        clearErrors,
-        clearFieldError,
-        setErrors,
-        setGeneralError,
+        handleApiError,
+        showSuccess,
+        showInfo,
+        showWarning,
     };
 };

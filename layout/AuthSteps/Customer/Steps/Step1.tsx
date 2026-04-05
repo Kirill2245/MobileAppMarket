@@ -1,6 +1,7 @@
 import { authApi } from "@/api/endpoints/auth";
 import StyledButton from "@/components/StyledButton";
-import { useFormError } from "@/hooks/useFormError";
+
+import { useApiError } from "@/hooks/useFormError";
 import { Role } from "@/types/role.enum";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
@@ -23,48 +24,21 @@ const Step1:React.FC<Slide1Props> = ({onSwitchToLogin, nextStep}) => {
         passwordReapeat:'',
         role:Role.CUSTOMER
     });
-    const { errors, generalError, handleError, clearErrors, clearFieldError } = useFormError();
-    const [isLoading, setIsLoading] = useState(false);
-    // const validateForm = (): boolean => {
-    //     clearErrors();
-        
-    //     if (!formData.firstName.trim()) {
-    //         handleError(new Error('Введите имя'), 'Validation');
-    //         return false;
-    //     }
-        
-    //     if (!formData.email.trim()) {
-    //         handleError(new Error('Введите email'), 'Validation');
-    //         return false;
-    //     }
-        
-    //     if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-    //         handleError(new Error('Введите корректный email'), 'Validation');
-    //         return false;
-    //     }
-        
-    //     if (formData.password.length < 6) {
-    //         handleError(new Error('Пароль должен содержать минимум 6 символов'), 'Validation');
-    //         return false;
-    //     }
-        
-    //     if (formData.password !== formData.passwordReapeat) {
-    //         handleError(new Error('Пароли не совпадают'), 'Validation');
-    //         return false;
-    //     }
-        
-    //     return true;
-    // };
 
+    const { handleApiError, showSuccess } = useApiError();
+    const [isLoading, setIsLoading] = useState(false);
+    
     const handleSign = async () => {
-        // if (!validateForm()) return;
-        
         setIsLoading(true);
+        
         try {
+
+            
             await authApi.register(formData);
+            showSuccess('Регистрация прошла успешно!');
             nextStep();
         } catch (err) {
-            handleError(err, 'Registration');
+            handleApiError(err, 'Registration');
         } finally {
             setIsLoading(false);
         }

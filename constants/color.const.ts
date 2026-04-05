@@ -19,7 +19,11 @@ export const COLORS = {
     SEMI_BLUE_COLOR:'#B7C5F9',
     SVG_BG:'#F9F9F9',
     BG_CARD_ACTIVE:"#F2F2F7",
-    LIGHT_GREY:'#F5F5F7'
+    LIGHT_GREY:'#F5F5F7',
+    SUCCESS:'#4CAF50',
+    ERROR:'#F44336',
+    WARNING:'#FF9800',
+    INFO:'#2196F3'
 }
 
 export const GRADIENT_PRYMARY_BG = {

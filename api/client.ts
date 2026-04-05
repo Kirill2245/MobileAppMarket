@@ -2,7 +2,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import { API_CONFIG } from '../config/api.config';
-import { logError } from '../utils/error-handler';
+import { handleGlobalError } from '../utils/globalErrorHandler';
 
 class ApiClient {
   private instance: AxiosInstance;
@@ -31,7 +31,10 @@ class ApiClient {
         config.headers['X-Mobile-App'] = 'true';
         return config;
       },
-      (error) => Promise.reject(error)
+      (error) => {
+        handleGlobalError(error, 'Request Interceptor');
+        return Promise.reject(error);
+      }
     );
 
     this.instance.interceptors.response.use(
@@ -45,11 +48,17 @@ class ApiClient {
         return response;
       },
       async (error) => {
-        // Логируем ошибку
-        logError(error, 'API');
-        
         if (error.response?.status === 401) {
           await SecureStore.deleteItemAsync(this.SESSION_KEY);
+          handleGlobalError(error, 'Unauthorized');
+        } else if (error.response?.status === 400) {
+          handleGlobalError(error, 'Bad Request');
+        } else if (error.response?.status === 500) {
+          handleGlobalError(error, 'Server Error');
+        } else if (error.request) {
+          handleGlobalError(error, 'Network Error');
+        } else {
+          handleGlobalError(error, 'API Error');
         }
         
         return Promise.reject(error);

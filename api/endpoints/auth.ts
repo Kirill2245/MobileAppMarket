@@ -35,20 +35,19 @@ class AuthApi {
           
       } catch (error: any) {
           console.error('❌ Register error caught in service');
-          
-          // Извлекаем понятное сообщение об ошибке
+        
           let errorMessage = 'Произошла ошибка при регистрации';
           
           if (error.response) {
-              // Сервер вернул ответ с ошибкой
+
               const serverData = error.response.data;
               
               if (serverData.message) {
                   if (Array.isArray(serverData.message)) {
-                      // Массив сообщений об ошибках валидации
+
                       errorMessage = serverData.message.join('\n');
                   } else {
-                      // Строковое сообщение
+
                       errorMessage = serverData.message;
                   }
               } else if (serverData.error) {
@@ -60,15 +59,14 @@ class AuthApi {
                   message: errorMessage
               });
           } else if (error.request) {
-              // Нет ответа от сервера
+
               errorMessage = 'Нет соединения с сервером. Проверьте интернет-соединение.';
               console.log('🌐 Network error:', error.message);
           } else {
-              // Ошибка при настройке запроса
+
               errorMessage = error.message || 'Неизвестная ошибка';
           }
           
-          // Создаем расширенную ошибку с деталями
           const enhancedError: any = new Error(errorMessage);
           enhancedError.originalError = error;
           enhancedError.statusCode = error.response?.status;

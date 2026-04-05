@@ -3,6 +3,7 @@ import StyledInputLable from "@/components/StyledInputLable";
 import { COLORS } from "@/constants/color.const";
 import { useAuth } from "@/context/AuthContext";
 import { useAuthApi } from "@/hooks/useAuthApi";
+import { useApiError } from "@/hooks/useFormError";
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from 'expo-secure-store';
 import { useState } from "react";
@@ -14,7 +15,7 @@ const Form = () => {
     const [email, setEmail] = useState<string>('');
     const {login} = useAuth()
     const { clearError } = useAuthApi();
-
+    const { handleApiError, showSuccess } = useApiError();
     const handleLogin = async () => {
         if (!email || !onPassword) {
             Alert.alert('Error', 'Please enter email and password');
@@ -26,19 +27,15 @@ const Form = () => {
             
             const loginData: any = { email, password:onPassword };
             
-
-            console.log('1. Starting login...');
             const userData = await login(loginData);
-            console.log('2. Login returned:', userData);
-            console.log('3. userData.id:', userData?.id);
-            console.log('4. userData.email:', userData?.email);
             
-            // Проверяем, сохранился ли userId в SecureStore
             const savedUserId = await SecureStore.getItemAsync('user_id');
-            console.log('5. Saved user_id in SecureStore:', savedUserId);
+            
+            showSuccess('Успешно!');
         
 
         } catch (err: any) {
+            handleApiError(err, 'Login');
             console.error('Login error:', err);
         }
     };
