@@ -1,9 +1,13 @@
+// services/api-client.ts
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import { API_CONFIG } from '../config/api.config';
+import { logError } from '../utils/error-handler';
+
 class ApiClient {
   private instance: AxiosInstance;
-
+  private readonly SESSION_KEY = 'session_id';
+  
   constructor() {
     this.instance = axios.create({
       baseURL: API_CONFIG.baseURL,
@@ -19,17 +23,12 @@ class ApiClient {
       async (config) => {
         console.log(`📡 ${config.method?.toUpperCase()} ${config.url}`);
         
-        // Получаем userId из безопасного хранилища
-        const userId = await SecureStore.getItemAsync('user_id');
-        if (userId) {
-          // Добавляем userId в заголовок X-User-Id
-          config.headers['X-User-Id'] = userId;
-          console.log('🔑 User ID added to request headers');
+        const sessionId = await SecureStore.getItemAsync(this.SESSION_KEY);
+        if (sessionId) {
+          config.headers['X-Session-Id'] = sessionId;
         }
         
-        // Добавляем заголовок, указывающий что это мобильное приложение
         config.headers['X-Mobile-App'] = 'true';
-        
         return config;
       },
       (error) => Promise.reject(error)
@@ -39,25 +38,25 @@ class ApiClient {
       async (response) => {
         console.log(`✅ ${response.config.url} - ${response.status}`);
         
-        // Сохраняем userId ТОЛЬКО если это логин
-        if (response.config.url?.includes('/auth/login') && response.data?.id) {
-          await SecureStore.setItemAsync('user_id', response.data.id);
-          console.log('🔒 User ID saved from login:', response.data.id);
+        if (response.config.url?.includes('/auth/login') && response.data?.sessionId) {
+          await SecureStore.setItemAsync(this.SESSION_KEY, response.data.sessionId);
         }
         
         return response;
       },
       async (error) => {
+        // Логируем ошибку
+        logError(error, 'API');
+        
         if (error.response?.status === 401) {
-          await SecureStore.deleteItemAsync('user_id');
-          console.log('🗑️ User ID cleared due to 401');
+          await SecureStore.deleteItemAsync(this.SESSION_KEY);
         }
+        
         return Promise.reject(error);
       }
     );
   }
 
-  // Generic методы
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     const response: AxiosResponse<T> = await this.instance.get(url, config);
     return response.data;

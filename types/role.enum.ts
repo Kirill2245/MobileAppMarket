@@ -1,5 +1,5 @@
 // types/role.enum.ts
 export enum Role {
-    MASTER = 'master',
-    CUSTOMER = 'customer'
+    MASTER = 'MASTER',
+    CUSTOMER = 'CUSTOMER'
 }

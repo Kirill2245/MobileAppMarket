@@ -12,7 +12,7 @@ const Form = () => {
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
     const [onPassword, setOnPassword] = useState<string>('')
     const [email, setEmail] = useState<string>('');
-    const {checkAuth, login} = useAuth()
+    const {login} = useAuth()
     const { clearError } = useAuthApi();
 
     const handleLogin = async () => {

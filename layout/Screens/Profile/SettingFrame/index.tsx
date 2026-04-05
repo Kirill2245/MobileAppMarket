@@ -17,31 +17,38 @@ const SettingFrame = () => {
     const listBtn = [
         {
             title:'Настроики аккаунта',
-            icon:ProfileIconSetting
+            icon:ProfileIconSetting,
+            onClick:() => {}
         },
         {
             title:'Способы оплаты',
-            icon:CardIcon
+            icon:CardIcon,
+            onClick:() => {}
         },
         {
             title:'Уведомления',
-            icon:BellIcon
+            icon:BellIcon,
+            onClick:() => {}
         },
         {
             title:'Настройки AI',
-            icon:StarIconSetting
+            icon:StarIconSetting,
+            onClick:() => {}
         },
         {
             title:'Члены команды',
-            icon:UsersIcon
+            icon:UsersIcon,
+            onClick:() => {}
         },
         {
             title:'Безопасность',
-            icon:ShieldIcon
+            icon:ShieldIcon,
+            onClick:() => {}
         },
         {
             title:'Помощь и поддержка',
-            icon:HelpIcon
+            icon:HelpIcon,
+            onClick:() => {}
         },
     ]
     return (
