@@ -1,4 +1,5 @@
 import StyledText from "@/components/StyledText";
+import { DEV } from "@/constants/dev.const";
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
@@ -11,7 +12,7 @@ const RootLayout = () => {
     const { isAuthUser, loading } = useAuth(); 
 
     // Показываем загрузку, пока проверяем авторизацию
-    if (loading) {
+    if (loading && !DEV.IS_DEV_NO_DB) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <ActivityIndicator size="large" color="#0000ff" />
@@ -21,7 +22,7 @@ const RootLayout = () => {
     }
     
     // Если пользователь авторизован - показываем Main
-    if (isAuthUser) {
+    if (isAuthUser || DEV.IS_DEV_NO_DB) {
         return <Main />;
     }
 

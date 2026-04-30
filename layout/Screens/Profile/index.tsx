@@ -60,7 +60,9 @@ const Profile = () => {
 const styles = StyleSheet.create({
     profile: {
         flex: 1,
-        backgroundColor: COLORS.CARD_BG
+        backgroundColor: COLORS.CARD_BG,
+        alignItems:'center',
+        justifyContent:'center'
     },
     contentContainer: {
         paddingTop: 34.4,

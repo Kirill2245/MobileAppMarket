@@ -1,5 +1,6 @@
 import { authApi } from '@/api/endpoints/auth';
 import { LoginDto, User } from '@/api/types/auth.types';
+import { DEV } from '@/constants/dev.const';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface AuthContextType {
@@ -89,7 +90,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Проверяем авторизацию при монтировании
   useEffect(() => {
-    checkAuth();
+    if (!DEV.IS_DEV_NO_DB){
+      checkAuth();
+    }
   }, []);
 
   const value: AuthContextType = {
